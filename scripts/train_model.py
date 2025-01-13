@@ -166,7 +166,7 @@ def main():
 
     # Train the model
     print('epoch start')
-    model.fit(X_train_scaled, y_train, epochs=1, batch_size=16, validation_split=0.2, verbose=2)
+    model.fit(X_train_scaled, y_train, epochs=1, batch_size=16, validation_split=0.2, verbose=1)
     print('epoch end'
           '')
     # Save the model, scaler, and label encoders

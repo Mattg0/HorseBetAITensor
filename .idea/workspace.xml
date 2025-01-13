@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="removing hippique.db" />
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="init">
+      <change afterPath="$PROJECT_DIR$/core/get_hippiquedb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/format_coursedata.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,41 +56,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.AI_perf.executor&quot;: &quot;Run&quot;,
-    &quot;Python.DataVisualizer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Predict.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Predict_tensor.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Predict_torch.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Resultats_db_connector.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Tensor_tierce.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.api_fetcher.executor&quot;: &quot;Run&quot;,
-    &quot;Python.cheval_db_connector.executor&quot;: &quot;Run&quot;,
-    &quot;Python.course_db_connector.executor&quot;: &quot;Run&quot;,
-    &quot;Python.courses_test_connector.executor&quot;: &quot;Run&quot;,
-    &quot;Python.createdb.executor&quot;: &quot;Run&quot;,
-    &quot;Python.db_helper.executor&quot;: &quot;Run&quot;,
-    &quot;Python.entraineur_db_connector.executor&quot;: &quot;Run&quot;,
-    &quot;Python.fill_db.executor&quot;: &quot;Run&quot;,
-    &quot;Python.format_coursedata.executor&quot;: &quot;Run&quot;,
-    &quot;Python.initialise_db.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.initialisedb.executor&quot;: &quot;Run&quot;,
-    &quot;Python.insert_participants.executor&quot;: &quot;Run&quot;,
-    &quot;Python.jokey_db_connector.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.predict_race.executor&quot;: &quot;Run&quot;,
-    &quot;Python.requests.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_libs.executor&quot;: &quot;Run&quot;,
-    &quot;Python.toolbox.pi.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.train_model.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mattg0/Docs/HorseBetAITensor&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.AI_perf.executor": "Run",
+    "Python.DataVisualizer.executor": "Run",
+    "Python.Predict.executor": "Run",
+    "Python.Predict_tensor.executor": "Run",
+    "Python.Predict_torch.executor": "Run",
+    "Python.Resultats_db_connector.executor": "Run",
+    "Python.Tensor_tierce.executor": "Debug",
+    "Python.api_fetcher.executor": "Run",
+    "Python.cheval_db_connector.executor": "Run",
+    "Python.course_db_connector.executor": "Run",
+    "Python.courses_test_connector.executor": "Run",
+    "Python.createdb.executor": "Run",
+    "Python.db_helper.executor": "Run",
+    "Python.entraineur_db_connector.executor": "Run",
+    "Python.fill_db.executor": "Run",
+    "Python.format_coursedata.executor": "Run",
+    "Python.get_hippiquedb.executor": "Run",
+    "Python.initialise_db.executor": "Debug",
+    "Python.initialisedb.executor": "Run",
+    "Python.insert_participants.executor": "Run",
+    "Python.jokey_db_connector.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.predict_race.executor": "Run",
+    "Python.requests.executor": "Run",
+    "Python.test_libs.executor": "Run",
+    "Python.toolbox.pi.executor": "Debug",
+    "Python.train_model.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/mattg0/Docs/HorseBetAITensor",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/scripts" />
@@ -96,29 +102,7 @@
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train_model">
-    <configuration name="AI_perf" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/AI_perf.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.get_hippiquedb">
     <configuration name="course_db_connector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
@@ -155,6 +139,28 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/courses_test_connector.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="get_hippiquedb" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HorseBetAI" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/get_hippiquedb.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -208,7 +214,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.AI_perf" />
+      <item itemvalue="Python.get_hippiquedb" />
       <item itemvalue="Python.course_db_connector" />
       <item itemvalue="Python.courses_test_connector" />
       <item itemvalue="Python.predict_race" />
@@ -216,11 +222,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.get_hippiquedb" />
         <item itemvalue="Python.train_model" />
         <item itemvalue="Python.predict_race" />
         <item itemvalue="Python.courses_test_connector" />
         <item itemvalue="Python.course_db_connector" />
-        <item itemvalue="Python.AI_perf" />
       </list>
     </recent_temporary>
   </component>
@@ -259,7 +265,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736761669712</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="init">
+      <option name="closed" value="true" />
+      <created>1736764651319</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736764651319</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -275,7 +289,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="removing hippique.db" />
-    <option name="LAST_COMMIT_MESSAGE" value="removing hippique.db" />
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -314,11 +329,6 @@
           <url>file://$PROJECT_DIR$/scripts/Tensor_tierce.py</url>
           <line>178</line>
           <option name="timeStamp" value="131" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/scripts/AI_perf.py</url>
-          <line>56</line>
-          <option name="timeStamp" value="152" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/scripts/train_model.py</url>

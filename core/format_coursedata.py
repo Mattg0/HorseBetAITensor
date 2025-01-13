@@ -94,7 +94,7 @@ def transform_data(data, columns):
 
 def main(comp):
     # MySQL connection parameters
-    mysql_host = "127.0.0.1"  # Change this to your MySQL host
+    mysql_host = "ddns.mattgautier.fr:23306"  # Change this to your MySQL host
     mysql_user = "turfai"  # Change this to your MySQL username
     mysql_password = "welcome123"  # Change this to your MySQL password
     mysql_db = "pturf2024"  # Change this to your MySQL database name

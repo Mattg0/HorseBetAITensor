@@ -1,0 +1,11 @@
+requests
+pandas
+sqlite3
+mysql
+json
+decimals
+hashlibs
+numpy
+scikit-learn
+tensorflow
+joblib

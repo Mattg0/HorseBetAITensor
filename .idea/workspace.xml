@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="Add script to dl db + connect externally to MySQL">
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="tlms branch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/train_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,7 +283,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736767881796</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="tlms branch">
+      <option name="closed" value="true" />
+      <created>1736792896100</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736792896100</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -302,7 +309,8 @@
     <MESSAGE value="removing hippique.db" />
     <MESSAGE value="init" />
     <MESSAGE value="Add script to dl db + connect externally to MySQL" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add script to dl db + connect externally to MySQL" />
+    <MESSAGE value="tlms branch" />
+    <option name="LAST_COMMIT_MESSAGE" value="tlms branch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

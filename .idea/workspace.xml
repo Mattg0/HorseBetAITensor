@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="tlms branch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/format_coursedata.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/predict_race.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +34,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -104,8 +105,8 @@
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train_model">
-    <configuration name="course_db_connector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.AI_perf">
+    <configuration name="AI_perf" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -114,11 +115,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/course_db_connector.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/AI_perf.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -216,19 +217,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.AI_perf" />
       <item itemvalue="Python.get_hippiquedb" />
-      <item itemvalue="Python.course_db_connector" />
       <item itemvalue="Python.courses_test_connector" />
       <item itemvalue="Python.predict_race" />
       <item itemvalue="Python.train_model" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.AI_perf" />
+        <item itemvalue="Python.predict_race" />
         <item itemvalue="Python.train_model" />
         <item itemvalue="Python.get_hippiquedb" />
-        <item itemvalue="Python.predict_race" />
         <item itemvalue="Python.courses_test_connector" />
-        <item itemvalue="Python.course_db_connector" />
       </list>
     </recent_temporary>
   </component>
@@ -291,7 +292,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736792896100</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="tlms branch">
+      <option name="closed" value="true" />
+      <created>1736870311697</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736870311697</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -349,6 +358,21 @@
           <url>file://$PROJECT_DIR$/scripts/Tensor_tierce.py</url>
           <line>178</line>
           <option name="timeStamp" value="131" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/predict_race.py</url>
+          <line>54</line>
+          <option name="timeStamp" value="190" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/predict_race.py</url>
+          <line>64</line>
+          <option name="timeStamp" value="191" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/predict_race.py</url>
+          <line>63</line>
+          <option name="timeStamp" value="192" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

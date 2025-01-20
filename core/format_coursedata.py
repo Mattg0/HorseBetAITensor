@@ -1,6 +1,8 @@
 import mysql.connector
 import json
 from decimal import Decimal
+import sys
+sys.path.append('../../')
 
 def fetch_data_from_mysql(mysql_host, mysql_user, mysql_password, mysql_db, mysql_query):
     """Connect to MySQL and fetch data based on the provided query."""

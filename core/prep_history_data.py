@@ -7,6 +7,8 @@ from sklearn.model_selection import train_test_split
 import joblib
 import hashlib
 import numpy as np  # Import numpy for numerical checks
+import sys
+sys.path.append('../../')
 
 def connect_to_db(db_path):
     """Connect to the SQLite database."""

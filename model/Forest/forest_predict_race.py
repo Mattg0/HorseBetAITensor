@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../../')
 import pandas as pd
 import json
 import sqlite3

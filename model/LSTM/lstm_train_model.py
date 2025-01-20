@@ -1,6 +1,8 @@
 import pandas as pd
 import json
 import sqlite3
+import sys
+sys.path.append('../../')
 import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
@@ -9,7 +11,6 @@ import hashlib
 import numpy as np
 import os
 from core.prep_history_data import main as get_historical_races
-
 
 
 def encode_targets(y):

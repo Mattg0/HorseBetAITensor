@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="Adding cote as parameter + some refactoring">
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="change in requirement.txt">
+      <change afterPath="$PROJECT_DIR$/setting.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/get_hippiquedb.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/get_hippiquedb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/format_coursedata.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/prep_history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +112,7 @@
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.lstm_train_model">
+  <component name="RunManager" selected="Python.forest_train_model">
     <configuration name="AI_perf" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
@@ -182,7 +188,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model/LSTM" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -226,8 +232,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.lstm_train_model" />
         <item itemvalue="Python.forest_train_model" />
+        <item itemvalue="Python.lstm_train_model" />
         <item itemvalue="Python.forest_predict_race" />
         <item itemvalue="Python.course_db_connector" />
         <item itemvalue="Python.AI_perf" />
@@ -293,7 +299,39 @@
       <option name="project" value="LOCAL" />
       <updated>1737371290161</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update hippique.db link">
+      <option name="closed" value="true" />
+      <created>1737376990543</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1737376990543</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update hippique.db link">
+      <option name="closed" value="true" />
+      <created>1737377996182</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1737377996182</updated>
+    </task>
+    <task id="LOCAL-00008" summary="change in requirement.txt">
+      <option name="closed" value="true" />
+      <created>1737378047697</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1737378047697</updated>
+    </task>
+    <task id="LOCAL-00009" summary="change in requirement.txt">
+      <option name="closed" value="true" />
+      <created>1737378094169</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1737378094169</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -312,7 +350,9 @@
     <MESSAGE value="init" />
     <MESSAGE value="Add script to dl db + connect externally to MySQL" />
     <MESSAGE value="Adding cote as parameter + some refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding cote as parameter + some refactoring" />
+    <MESSAGE value="Update hippique.db link" />
+    <MESSAGE value="change in requirement.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="change in requirement.txt" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -374,7 +414,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model/Forest/forest_predict_race.py</url>
-          <line>57</line>
+          <line>59</line>
           <option name="timeStamp" value="193" />
         </line-breakpoint>
       </breakpoints>

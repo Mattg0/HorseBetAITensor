@@ -104,7 +104,8 @@ def main(comp_to_predict):
      df_next_race['predicted_ordre_arrivee'] = df_next_race['predicted_scores'].rank(method='min', ascending=False)
 
     # Sort the DataFrame by predicted order
-     result = df_next_race.sort_values(by='predicted_ordre_arrivee')
+     result = df_next_race.sort_values(by='predicted_ordre_arrivee', ascending=False).head(3)
+
 
     # Construct output with each horse's idche and predicted order
      result = result[['idche', 'cheval', 'predicted_ordre_arrivee']]

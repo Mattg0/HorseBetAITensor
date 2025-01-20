@@ -25,7 +25,7 @@ def calculate_success_rates(predictions, actual_results):
     predicted_list = predictions.split('-')  # Convert '4-3-6-7-8' to ['4', '3', '6', '7', '8']
 
     # Extract the top 5 actual results from the actual_results string
-    actual_list = actual_results.split('-')[:5]  # Get the first 5 results
+    actual_list = actual_results.split('-')[:3]  # Get the first 5 results
 
     # Convert to sets for comparison
     predicted_set = set(predicted_list)

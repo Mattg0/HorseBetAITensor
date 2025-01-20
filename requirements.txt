@@ -1,8 +1,7 @@
 requests
 pandas
-sqlite3
 mysql
-json
+jsonp
 decimals
 hashlibs
 numpy

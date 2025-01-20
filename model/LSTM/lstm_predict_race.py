@@ -39,7 +39,7 @@ def safe_transform(encoder, values):
         return np.array(transformed_values)
 
 
-def main(comp_to_predict):
+def main(comp_to_predict,bet_type):
     # Fetch the next race data
      next_race_data = json.loads(fetch_next_race(comp_to_predict))
 
@@ -104,7 +104,7 @@ def main(comp_to_predict):
      df_next_race['predicted_ordre_arrivee'] = df_next_race['predicted_scores'].rank(method='min', ascending=False)
 
     # Sort the DataFrame by predicted order
-     result = df_next_race.sort_values(by='predicted_ordre_arrivee', ascending=False).head(3)
+     result = df_next_race.sort_values(by='predicted_ordre_arrivee', ascending=False).head(bet_type)
 
 
     # Construct output with each horse's idche and predicted order
@@ -126,4 +126,4 @@ def main(comp_to_predict):
      return predict_arriv
 
 if __name__ == "__main__":
-    main('1552621')
+    main('1552621',3)

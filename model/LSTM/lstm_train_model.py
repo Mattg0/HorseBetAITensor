@@ -2,7 +2,7 @@ import pandas as pd
 import json
 import sqlite3
 import sys
-sys.path.append('../../')
+sys.path.append('../..')
 import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split

@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="adding rootdir">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/prep_history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -341,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737389466704</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="adding rootdir">
+      <option name="closed" value="true" />
+      <created>1737389596995</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1737389596995</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

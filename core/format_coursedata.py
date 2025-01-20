@@ -45,6 +45,7 @@ def transform_data(data, columns):
 
     # Identify the indices of the relevant columns
     hippo_index = columns.index('hippo')
+    jour_index = columns.index('jour')
     meteo_index = columns.index('meteo')
     dist_index = columns.index('dist')
     corde_index = columns.index('corde')
@@ -62,6 +63,7 @@ def transform_data(data, columns):
         if not course_info:
             course_info = {
                 'hippo': row[hippo_index],
+                'jour': row[jour_index],
                 'meteo': row[meteo_index],
                 'dist': convert_decimal(row[dist_index]),
                 'corde': row[corde_index],
@@ -83,7 +85,9 @@ def transform_data(data, columns):
             'musiqueche': row[columns.index('musiqueche')],
             'idJockey': row[columns.index('idJockey')],
             'musiquejoc': row[columns.index('musiquejoc')],
-            'idEntraineur': convert_decimal(row[columns.index('idEntraineur')])
+            'idEntraineur': convert_decimal(row[columns.index('idEntraineur')]),
+            'cotedirect': float(row[columns.index('cotedirect')]),
+            'coteprob': float(row[columns.index('coteprob')])
         }
         participants.append(participant_info)
 
@@ -103,7 +107,7 @@ def main(comp):
            caractrap.corde, caractrap.natpis, caractrap.pistegp, caractrap.arriv,
            caractrap.temperature, caractrap.forceVent, caractrap.directionVent,
            caractrap.nebulositeLibelleCourt, cachedate.idche, cachedate.cheval,
-           cachedate.numero,cachedate.age, musiqueche, cachedate.idJockey, musiquejoc, cachedate.idEntraineur
+           cachedate.numero,cachedate.age, musiqueche, cachedate.idJockey, musiquejoc, cachedate.idEntraineur,cachedate.cotedirect,cachedate.coteprob
     FROM caractrap
     INNER JOIN cachedate ON caractrap.id = cachedate.comp WHERE cachedate.comp = {comp}
     """  # Use the comp parameter in the query

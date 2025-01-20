@@ -4,24 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="make it tierce">
-      <change afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" afterDir="false" />
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="Add script to dl db + connect externally to MySQL">
+      <change afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/Resultats_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/Resultats_db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/api_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/API_Connectors/api_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/cheval_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/cheval_db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/course_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/course_db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/courses_test_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/courses_test_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/db_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/db_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/entraineur_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/entraineur_db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/format_coursedata.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/get_hippiquedb.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/get_hippiquedb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/initialise_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/initialise_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/insert_participants.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/insert_participants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/jokey_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/jokey_db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/requests.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/requests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/label_encoder_idJockey.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/label_encoder_idJockey.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/label_encoder_idche.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/label_encoder_idche.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/race_model.keras" beforeDir="false" afterPath="$PROJECT_DIR$/model/race_model.keras" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/scaler.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/scaler.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/AI_perf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/AI_perf.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Predict_tensor.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Resultats_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/Resultats_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Tensor_tierce.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cheval_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/cheval_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/course_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/course_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/courses_test_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/courses_test_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/entraineur_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/entraineur_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/initialise_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/initialise_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/insert_participants.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/insert_participants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/jokey_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/jokey_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/toolbox.pi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,12 +50,8 @@
         <option name="title" value="Current Branch" />
       </GitPushTagMode>
     </option>
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -90,12 +94,16 @@
     "Python.db_helper.executor": "Run",
     "Python.entraineur_db_connector.executor": "Run",
     "Python.fill_db.executor": "Run",
+    "Python.forest_predict_race.executor": "Run",
+    "Python.forest_train_model.executor": "Run",
     "Python.format_coursedata.executor": "Run",
     "Python.get_hippiquedb.executor": "Run",
-    "Python.initialise_db.executor": "Debug",
+    "Python.initialise_db.executor": "Run",
     "Python.initialisedb.executor": "Run",
     "Python.insert_participants.executor": "Run",
     "Python.jokey_db_connector.executor": "Run",
+    "Python.lstm_predict_race.executor": "Run",
+    "Python.lstm_train_model.executor": "Run",
     "Python.main.executor": "Run",
     "Python.predict_race.executor": "Run",
     "Python.requests.executor": "Run",
@@ -104,25 +112,24 @@
     "Python.train_model.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "LTMS",
-    "last_opened_file_path": "/Users/mattg0/Docs/HorseBetAITensor/model/Forest",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/mattg0/Docs/HorseBetAITensor",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/model/Forest" />
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/model/Forest" />
-      <recent name="$PROJECT_DIR$/model/LSTM" />
-      <recent name="$PROJECT_DIR$/core" />
-      <recent name="$PROJECT_DIR$/tools" />
+      <recent name="$PROJECT_DIR$/core/API_Connectors" />
+      <recent name="$PROJECT_DIR$/core/DB_Connectors" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/data" />
+      <recent name="$PROJECT_DIR$/scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.AI_perf">
+  <component name="RunManager" selected="Python.lstm_train_model">
     <configuration name="AI_perf" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
@@ -145,51 +152,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="courses_test_connector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/courses_test_connector.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="get_hippiquedb" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/get_hippiquedb.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="lstm_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="course_db_connector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -202,7 +165,51 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/DB_Connectors/course_db_connector.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="forest_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HorseBetAI" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Forest/forest_predict_race.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="forest_train_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HorseBetAI" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Forest/forest_train_model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -234,19 +241,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.AI_perf" />
-      <item itemvalue="Python.get_hippiquedb" />
-      <item itemvalue="Python.courses_test_connector" />
-      <item itemvalue="Python.lstm_predict_race" />
       <item itemvalue="Python.lstm_train_model" />
+      <item itemvalue="Python.AI_perf" />
+      <item itemvalue="Python.forest_predict_race" />
+      <item itemvalue="Python.course_db_connector" />
+      <item itemvalue="Python.forest_train_model" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.AI_perf" />
-        <item itemvalue="Python.lstm_predict_race" />
         <item itemvalue="Python.lstm_train_model" />
-        <item itemvalue="Python.get_hippiquedb" />
-        <item itemvalue="Python.courses_test_connector" />
+        <item itemvalue="Python.forest_train_model" />
+        <item itemvalue="Python.forest_predict_race" />
+        <item itemvalue="Python.course_db_connector" />
+        <item itemvalue="Python.AI_perf" />
       </list>
     </recent_temporary>
   </component>
@@ -301,39 +308,7 @@
       <option name="project" value="LOCAL" />
       <updated>1736767881796</updated>
     </task>
-    <task id="LOCAL-00005" summary="tlms branch">
-      <option name="closed" value="true" />
-      <created>1736792896100</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1736792896100</updated>
-    </task>
-    <task id="LOCAL-00006" summary="tlms branch">
-      <option name="closed" value="true" />
-      <created>1736870311697</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1736870311697</updated>
-    </task>
-    <task id="LOCAL-00007" summary="ltms predict update">
-      <option name="closed" value="true" />
-      <created>1736934822141</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1736934822141</updated>
-    </task>
-    <task id="LOCAL-00008" summary="make it tierce">
-      <option name="closed" value="true" />
-      <created>1737356871762</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1737356871762</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -351,43 +326,70 @@
     <MESSAGE value="removing hippique.db" />
     <MESSAGE value="init" />
     <MESSAGE value="Add script to dl db + connect externally to MySQL" />
-    <MESSAGE value="tlms branch" />
-    <MESSAGE value="ltms predict update" />
-    <MESSAGE value="make it tierce" />
-    <option name="LAST_COMMIT_MESSAGE" value="make it tierce" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add script to dl db + connect externally to MySQL" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/core/course_db_connector.py</url>
+          <url>file://$PROJECT_DIR$/scripts/course_db_connector.py</url>
           <line>44</line>
           <option name="timeStamp" value="105" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/core/course_db_connector.py</url>
+          <url>file://$PROJECT_DIR$/scripts/course_db_connector.py</url>
           <line>114</line>
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/core/course_db_connector.py</url>
+          <url>file://$PROJECT_DIR$/scripts/course_db_connector.py</url>
           <line>115</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model/LSTM/lstm_predict_race.py</url>
-          <line>54</line>
-          <option name="timeStamp" value="190" />
+          <url>file://$PROJECT_DIR$/scripts/Tensor_tierce.py</url>
+          <line>168</line>
+          <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model/LSTM/lstm_predict_race.py</url>
-          <line>64</line>
-          <option name="timeStamp" value="191" />
+          <url>file://$PROJECT_DIR$/scripts/Tensor_tierce.py</url>
+          <line>191</line>
+          <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model/LSTM/lstm_predict_race.py</url>
-          <line>63</line>
-          <option name="timeStamp" value="192" />
+          <url>file://$PROJECT_DIR$/scripts/Tensor_tierce.py</url>
+          <line>187</line>
+          <option name="timeStamp" value="129" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/Tensor_tierce.py</url>
+          <line>178</line>
+          <option name="timeStamp" value="131" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/train_model.py</url>
+          <line>127</line>
+          <option name="timeStamp" value="158" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/predict_race.py</url>
+          <line>52</line>
+          <option name="timeStamp" value="167" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/predict_race.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="168" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/predict_race.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="169" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Forest/forest_predict_race.py</url>
+          <line>57</line>
+          <option name="timeStamp" value="193" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

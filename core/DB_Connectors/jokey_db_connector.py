@@ -1,6 +1,4 @@
 import mysql.connector
-import sqlite3
-from core.db_helper import create_connection
 
 import mysql.connector
 import sqlite3

@@ -1,4 +1,5 @@
-import requests
+from core.DB_Connectors import requests
+
 
 def fetch_participants(url):
     """Fetch participants data from the API."""

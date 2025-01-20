@@ -73,7 +73,9 @@ def transform_data(data, columns):
             'age': row[columns.index('age')],
             'idJockey': convert_decimal(row[columns.index('idJockey')]),
             'musiquejoc': row[columns.index('musiquejoc')],
-            'idEntraineur': convert_decimal(row[columns.index('idEntraineur')])
+            'idEntraineur': convert_decimal(row[columns.index('idEntraineur')]),
+            'cotedirect': float(row[columns.index('cotedirect')]),
+            'coteprob': float(row[columns.index('coteprob')])
 
         }
 
@@ -153,24 +155,21 @@ def insert_data_into_sqlite(sqlite_db, course_data):
     print("Data inserted into SQLite successfully.")
 
 
-def main():
+def main(sqlite_db,year):
     # MySQL connection parameters
     mysql_host = "127.0.0.1"  # Change this to your MySQL host
     mysql_user = "turfai"  # Change this to your MySQL username
     mysql_password = "welcome123"  # Change this to your MySQL password
-    mysql_db = "pturf2024"  # Change this to your MySQL database name
+    mysql_db = ("pturf"+year)  # Change this to your MySQL database name
     mysql_query = """
     SELECT caractrap.id, caractrap.jour, caractrap.hippo, caractrap.meteo, caractrap.dist,
            caractrap.corde, caractrap.natpis, caractrap.pistegp, caractrap.arriv,caractrap.typec,
            caractrap.temperature, caractrap.forceVent, caractrap.directionVent,
-           caractrap.nebulositeLibelleCourt, cachedate.idche, cachedate.cheval,
+           caractrap.nebulositeLibelleCourt, cachedate.idche, cachedate.cheval,cachedate.cotedirect,cachedate.coteprob,
            cachedate.numero, musiqueche, cachedate.idJockey, musiquejoc, cachedate.idEntraineur, cachedate.age
     FROM caractrap
     INNER JOIN cachedate ON caractrap.id = cachedate.comp
     """  # Change this to your MySQL query
-
-    # SQLite database file
-    sqlite_db = "../data/hippique.db"
 
     # Fetch data from MySQL
     data, columns = fetch_data_from_mysql(mysql_host, mysql_user, mysql_password, mysql_db, mysql_query)
@@ -184,4 +183,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main('data/hippique.db',2024)

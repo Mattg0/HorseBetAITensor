@@ -70,6 +70,12 @@ def initialize_db(conn):
             last_musique  TEXT
             );
         ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS Resultats (
+            comp INTEGER PRIMARY KEY,
+            ordre_arrivee TEXT NOT NULL
+            );
+        ''')
 
     conn.commit()
     conn.close()

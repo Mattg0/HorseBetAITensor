@@ -13,10 +13,10 @@ def connect_to_db(db_path):
 
 def load_model_and_scaler():
     """Load the model and scaler from disk."""
-    model = tf.keras.models.load_model('model/race_model.keras')
-    scaler = joblib.load('model/scaler.pkl')
-    label_encoder_idche = joblib.load('model/label_encoder_idche.pkl')
-    label_encoder_idJockey = joblib.load('model/label_encoder_idJockey.pkl')
+    model = tf.keras.models.load_model('model/race_model_tlms.keras')
+    scaler = joblib.load('model/scaler_tlms.pkl')
+    label_encoder_idche = joblib.load('model/label_encoder_idche_tlms.pkl')
+    label_encoder_idJockey = joblib.load('model/label_encoder_idJockey_tlms.pkl')
     return model, scaler, label_encoder_idche, label_encoder_idJockey
 
 def assign_value_to_combinations(df):
@@ -25,7 +25,7 @@ def assign_value_to_combinations(df):
     df['typec'] = df['typec'].apply(lambda x: int(hashlib.md5(x.encode()).hexdigest(), 16) % (10 ** 8))
     df['meteo'] = df['meteo'].apply(lambda x: int(hashlib.md5(x.encode()).hexdigest(), 16) % (10 ** 8))
     df['corde'] = df['corde'].apply(lambda x: int(hashlib.md5(x.encode()).hexdigest(), 16) % (10 ** 8))
-    #df['jour'] = pd.to_datetime(df['jour']).astype(int) // 10 ** 9
+    df['jour'] = pd.to_datetime(df['jour']).astype(int) // 10 ** 9
     return df
 
 # Encode categorical variables with handling for unseen labels
@@ -50,6 +50,7 @@ def main(comp_to_predict,bet_type):
      df_next_race['meteo'] = next_race_data['course_info'].get('meteo', None)
      df_next_race['dist'] = next_race_data['course_info'].get('dist', None)
      df_next_race['corde'] = next_race_data['course_info'].get('corde', None)
+     df_next_race['jour'] = next_race_data ['course_info'].get('jour',None)
 
     # Load the model and scaler
      model, scaler, label_encoder_idche, label_encoder_idJockey = load_model_and_scaler()
@@ -65,7 +66,7 @@ def main(comp_to_predict,bet_type):
    #  df_next_race['idJockey'] = safe_transform(label_encoder_idJockey, df_next_race['idJockey'])
 
     # Prepare the input features for the model
-     feature_columns = ['idche', 'idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist', 'corde']
+     feature_columns = ['idche', 'jour','idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist','corde']
 
     # Check if all required columns exist
      missing_cols = set(feature_columns) - set(df_next_race.columns)

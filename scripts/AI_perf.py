@@ -1,6 +1,6 @@
 import pandas as pd
 import sqlite3
-from model.LSTM.lstm_predict_race import main  as predict_course
+from model.Forest.forest_predict_race import main  as predict_course
 
 
 def connect_to_db(db_path):
@@ -9,7 +9,7 @@ def connect_to_db(db_path):
 
 def fetch_courses(conn):
     """Fetch course data from the database."""
-    query = ("SELECT comp, arriv FROM Courses_test LIMIT 0,30")
+    query = ("SELECT comp, arriv FROM Courses_test LIMIT 0,5")
 
     return pd.read_sql_query(query, conn)
 

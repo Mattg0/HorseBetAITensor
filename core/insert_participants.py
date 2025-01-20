@@ -1,6 +1,5 @@
-import json
-from core.db_helper  import create_connection, insert_participant
-from core.api_helper import fetch_participants
+from core.DB_Connectors.db_helper import create_connection, insert_participant
+from core.API_Connectors.api_helper import fetch_participants
 
 def main():
     url = "https://offline.turfinfo.api.pmu.fr/rest/client/7/programme/12102019/R1/C1/participants"

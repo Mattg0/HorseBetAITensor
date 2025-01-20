@@ -1,8 +1,7 @@
-import sqlite3
-from core.db_helper import create_connection, initialize_db
+from core.DB_Connectors.db_helper import create_connection, initialize_db
 
 def main():
-    database = "data/hippique.db"
+    database = "data/lite_hippique.db"
     conn = create_connection(database)
     initialize_db(conn)
     conn.close()

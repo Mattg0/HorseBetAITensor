@@ -1,7 +1,7 @@
 import sqlite3
 
 
-conn = sqlite3.connect('../data/hippique.db')
+conn = sqlite3.connect('../../data/hippique.db')
 cursor = conn.cursor()
 a=cursor.execute('''
 DROP TABLE Course ;

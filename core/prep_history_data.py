@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 import pandas as pd
 import json
 import sqlite3
@@ -7,8 +9,7 @@ from sklearn.model_selection import train_test_split
 import joblib
 import hashlib
 import numpy as np  # Import numpy for numerical checks
-import sys
-sys.path.append('../../')
+
 
 def connect_to_db(db_path):
     """Connect to the SQLite database."""
@@ -85,7 +86,7 @@ def assign_value_to_combinations(df):
 
 def main():
     # Connect to the database
-    conn = connect_to_db('data/lite_hippique.db')
+    conn = connect_to_db('data/hippique.db')
 
     # Fetch and process the combined data
     data = fetch_combined_data(conn)

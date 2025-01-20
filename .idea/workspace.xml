@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="change in requirement.txt">
-      <change afterPath="$PROJECT_DIR$/setting.py" afterDir="false" />
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="adding rootdir">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/format_coursedata.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/prep_history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -331,7 +325,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737378094169</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="adding rootdir">
+      <option name="closed" value="true" />
+      <created>1737389460760</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1737389460760</updated>
+    </task>
+    <task id="LOCAL-00011" summary="adding rootdir">
+      <option name="closed" value="true" />
+      <created>1737389466704</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1737389466704</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -352,7 +362,8 @@
     <MESSAGE value="Adding cote as parameter + some refactoring" />
     <MESSAGE value="Update hippique.db link" />
     <MESSAGE value="change in requirement.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="change in requirement.txt" />
+    <MESSAGE value="adding rootdir" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding rootdir" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -4,32 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="Add script to dl db + connect externally to MySQL">
-      <change afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="Adding cote as parameter + some refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/Resultats_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/Resultats_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/api_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/API_Connectors/api_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/cheval_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/cheval_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/course_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/course_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/courses_test_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/courses_test_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/db_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/db_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/entraineur_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/entraineur_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/format_coursedata.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/get_hippiquedb.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/get_hippiquedb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/initialise_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/initialise_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/insert_participants.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/insert_participants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/jokey_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/jokey_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/requests.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/requests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/label_encoder_idJockey.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/label_encoder_idJockey.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/label_encoder_idche.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/label_encoder_idche.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/race_model.keras" beforeDir="false" afterPath="$PROJECT_DIR$/model/race_model.keras" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/scaler.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/scaler.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/AI_perf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/AI_perf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/get_hippiquedb.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/get_hippiquedb.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -308,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736767881796</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Adding cote as parameter + some refactoring">
+      <option name="closed" value="true" />
+      <created>1737371290161</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737371290161</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -326,7 +311,8 @@
     <MESSAGE value="removing hippique.db" />
     <MESSAGE value="init" />
     <MESSAGE value="Add script to dl db + connect externally to MySQL" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add script to dl db + connect externally to MySQL" />
+    <MESSAGE value="Adding cote as parameter + some refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding cote as parameter + some refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

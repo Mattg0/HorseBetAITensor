@@ -1,6 +1,7 @@
 import pandas as pd
 import sqlite3
-from scripts.predict_race import main  as predict_course
+from model.LSTM.lstm_predict_race import main  as predict_course
+
 
 def connect_to_db(db_path):
     """Connect to the SQLite database."""
@@ -12,20 +13,20 @@ def fetch_courses(conn):
 
     return pd.read_sql_query(query, conn)
 
-def execute_predictions(course_comp):
+def execute_predictions(course_comp,bet_type):
     """Simulate the execution of predictions for a given course."""
     # Remplacez ceci par votre logique de prédiction
     # Pour l'exemple, nous allons simplement retourner une liste de numéros prédits
-    prediction = predict_course(course_comp)
+    prediction = predict_course(course_comp,bet_type)
     return prediction
 
-def calculate_success_rates(predictions, actual_results):
+def calculate_success_rates(predictions, actual_results,bet_type):
     """Calculate success rates for the predictions."""
     # Convert predictions from string to list
     predicted_list = predictions.split('-')  # Convert '4-3-6-7-8' to ['4', '3', '6', '7', '8']
 
     # Extract the top 5 actual results from the actual_results string
-    actual_list = actual_results.split('-')[:5]  # Get the first 5 results
+    actual_list = actual_results.split('-')[:bet_type]  # Get the first 5 results
 
     # Convert to sets for comparison
     predicted_set = set(predicted_list)
@@ -42,7 +43,7 @@ def calculate_success_rates(predictions, actual_results):
 
     return exact_match, unordered_match, correct_rate
 
-def main():
+def main(bet_type):
     # Connexion à la base de données
     conn = connect_to_db('data/hippique.db')
 
@@ -58,10 +59,10 @@ def main():
         actual_results = row['arriv']  # Supposons que les résultats soient stockés sous forme de chaîne
 
         # Exécuter les prédictions
-        predictions = execute_predictions(course_comp)
+        predictions = execute_predictions(course_comp,bet_type)
 
         # Calculer les taux de réussite
-        exact_match, unordered_match, correct_rate = calculate_success_rates(predictions, actual_results)
+        exact_match, unordered_match, correct_rate = calculate_success_rates(predictions, actual_results,bet_type)
 
         # Stocker les résultats
         results.append({
@@ -79,4 +80,4 @@ def main():
     return results_df
 
 if __name__ == "__main__":
-    main()
+    main(3)

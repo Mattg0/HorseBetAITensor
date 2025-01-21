@@ -57,7 +57,7 @@ def process_results(data):
                 'narrivee': horse.get('narrivee'),
                 'age': next((p.get('age') for p in row['participants'] if p.get('idche') == horse.get('idche')), None),
                 'idJockey': next((p.get('idJockey') for p in row['participants'] if p.get('idche') == horse.get('idche')), None),
-                'cotedirect': float(next((p.get('cotedirect') for p in row['participants'] if p.get('idche') == horse.get('idche')), 0.00)),
+                'cotedirect': float(next((p.get('cotedirect') for p in row['participants'] if p.get('idche') == horse.get('idche')),0.00) or 0.00),
                 'typec': row['typec'],
                 'natpis': row['natpis'],
                 'dist': row['dist'],

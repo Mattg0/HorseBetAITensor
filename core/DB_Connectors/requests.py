@@ -4,7 +4,7 @@ import sqlite3
 conn = sqlite3.connect('../../data/hippique.db')
 cursor = conn.cursor()
 a=cursor.execute('''
-DROP TABLE Course ;
+SELECT Count(*) From Course where cotedirecte"='' ;
 
        ''')
 

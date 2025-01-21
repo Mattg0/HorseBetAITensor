@@ -65,7 +65,7 @@ def main(comp_to_predict,bet_type):
 
 
     # Prepare the input features for the model
-    X_next_race = df_next_race[['idche', 'jour', 'idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist', 'corde','cotedirect','coteprob']]
+    X_next_race = df_next_race[['idche', 'jour', 'idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist', 'corde','cotedirect']]
 
     # Scale the next race features
     X_next_race_scaled = scaler.transform(X_next_race)

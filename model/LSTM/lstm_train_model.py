@@ -42,7 +42,7 @@ def main():
     df_results = get_historical_races()
 
     # Prepare features and target variable
-    X = df_results[['idche', 'jour', 'idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist', 'corde','cotedirect','coteprob']]
+    X = df_results[['idche', 'jour', 'idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist', 'corde','cotedirect']]
     y = df_results['position'].astype(int)  # Ensure target variable is integer
 
     # Check for NaN or infinite values in X and y

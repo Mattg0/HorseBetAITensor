@@ -57,8 +57,7 @@ def process_results(data):
                 'narrivee': horse.get('narrivee'),
                 'age': next((p.get('age') for p in row['participants'] if p.get('idche') == horse.get('idche')), None),
                 'idJockey': next((p.get('idJockey') for p in row['participants'] if p.get('idche') == horse.get('idche')), None),
-                'cotedirect': next((p.get('cotedirect') for p in row['participants'] if p.get('idche') == horse.get('idche')), None),
-                'coteprob': next((p.get('coteprob') for p in row['participants'] if p.get('idche') == horse.get('idche')), None),
+                'cotedirect': float(next((p.get('cotedirect') for p in row['participants'] if p.get('idche') == horse.get('idche')), 0.00)),
                 'typec': row['typec'],
                 'natpis': row['natpis'],
                 'dist': row['dist'],
@@ -91,7 +90,7 @@ def main():
     os.chdir(root_dir)
 
     # Get the database path from the config
-    db_name = config['databases'][0]['relative_path']
+    db_name = config['databases'][1]['relative_path']
 
     # Connect to DB
     conn= connect_to_db(db_name)

@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="adding main script with config">
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="updating link">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/requests.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/requests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/prep_history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setting.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,10 +87,10 @@
     "Python.insert_participants.executor": "Run",
     "Python.jokey_db_connector.executor": "Run",
     "Python.lstm_predict_race.executor": "Run",
-    "Python.lstm_train_model.executor": "Debug",
+    "Python.lstm_train_model.executor": "Run",
     "Python.main.executor": "Run",
     "Python.predict_race.executor": "Run",
-    "Python.requests.executor": "Run",
+    "Python.requests.executor": "Debug",
     "Python.test_libs.executor": "Run",
     "Python.toolbox.pi.executor": "Debug",
     "Python.train_model.executor": "Run",
@@ -106,7 +113,7 @@
       <recent name="$PROJECT_DIR$/core/DB_Connectors" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.lstm_train_model">
     <configuration name="forest_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
@@ -121,28 +128,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Forest/forest_predict_race.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="forest_train_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model/LSTM" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Forest/forest_train_model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -217,20 +202,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="requests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HorseBetAI" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/DB_Connectors" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/DB_Connectors/requests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.lstm_predict_race" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.requests" />
       <item itemvalue="Python.lstm_train_model" />
       <item itemvalue="Python.forest_predict_race" />
-      <item itemvalue="Python.forest_train_model" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.lstm_train_model" />
+        <item itemvalue="Python.requests" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.lstm_predict_race" />
         <item itemvalue="Python.forest_predict_race" />
-        <item itemvalue="Python.lstm_train_model" />
-        <item itemvalue="Python.forest_train_model" />
       </list>
     </recent_temporary>
   </component>
@@ -373,7 +380,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737457521896</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="adding main script with config">
+      <option name="closed" value="true" />
+      <created>1737462267735</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1737462267735</updated>
+    </task>
+    <task id="LOCAL-00017" summary="updating link">
+      <option name="closed" value="true" />
+      <created>1737462809541</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1737462809541</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -396,7 +419,8 @@
     <MESSAGE value="change in requirement.txt" />
     <MESSAGE value="adding rootdir" />
     <MESSAGE value="adding main script with config" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding main script with config" />
+    <MESSAGE value="updating link" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating link" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -460,6 +484,11 @@
           <url>file://$PROJECT_DIR$/model/Forest/forest_predict_race.py</url>
           <line>67</line>
           <option name="timeStamp" value="193" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/core/prep_history_data.py</url>
+          <line>103</line>
+          <option name="timeStamp" value="197" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

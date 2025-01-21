@@ -1,7 +1,6 @@
 # Configuration file for HorseBetAITensor AI project
 
-rootdir: /
-alt_rootdir: /HorseBetAITensor
+rootdir: /HorseBetAITensor
 datadir: data
 
 databases:

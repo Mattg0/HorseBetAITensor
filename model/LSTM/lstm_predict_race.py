@@ -77,7 +77,7 @@ def main(comp_to_predict,bet_type):
    #  df_next_race['idJockey'] = safe_transform(label_encoder_idJockey, df_next_race['idJockey'])
 
     # Prepare the input features for the model
-     feature_columns = ['idche', 'jour','idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist','corde','cotedirect']
+     feature_columns = ['idche', 'jour', 'idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist', 'corde','cotedirect']
 
     # Check if all required columns exist
      missing_cols = set(feature_columns) - set(df_next_race.columns)

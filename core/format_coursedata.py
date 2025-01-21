@@ -89,7 +89,6 @@ def transform_data(data, columns):
             'musiquejoc': row[columns.index('musiquejoc')],
             'idEntraineur': convert_decimal(row[columns.index('idEntraineur')]),
             'cotedirect': float(row[columns.index('cotedirect')]),
-            'coteprob': float(row[columns.index('coteprob')])
         }
         participants.append(participant_info)
 
@@ -109,7 +108,7 @@ def main(comp):
            caractrap.corde, caractrap.natpis, caractrap.pistegp, caractrap.arriv,
            caractrap.temperature, caractrap.forceVent, caractrap.directionVent,
            caractrap.nebulositeLibelleCourt, cachedate.idche, cachedate.cheval,
-           cachedate.numero,cachedate.age, musiqueche, cachedate.idJockey, musiquejoc, cachedate.idEntraineur,cachedate.cotedirect,cachedate.coteprob
+           cachedate.numero,cachedate.age, musiqueche, cachedate.idJockey, musiquejoc, cachedate.idEntraineur,cachedate.cotedirect
     FROM caractrap
     INNER JOIN cachedate ON caractrap.id = cachedate.comp WHERE cachedate.comp = {comp}
     """  # Use the comp parameter in the query

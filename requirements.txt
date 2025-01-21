@@ -1,9 +1,5 @@
 requests
 pandas
-mysql
-decimals
-hashlibs
-numpy
 scikit-learn
 tensorflow
 joblib

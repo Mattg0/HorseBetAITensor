@@ -4,26 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="adding rootdir">
-      <change afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/env_setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/insert_participants.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/prep_history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/label_encoder.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/label_encoder.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/label_encoder_idJockey.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idJockey.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/label_encoder_idJockey_tlms.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/generated/lstm_label_encoder_idJockey.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/label_encoder_idche.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idche.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/label_encoder_idche_tlms.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/generated/lstm_label_encoder_idche.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/race_model.keras" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/race_model.keras" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/race_model_tlms.keras" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/generated/lstm_race_model.keras" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/scaler.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/scaler.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/scaler_tlms.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/generated/lstm_scaler.pkl" afterDir="false" />
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="adding main script with config">
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -374,7 +356,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737389701601</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="adding main script with config">
+      <option name="closed" value="true" />
+      <created>1737456480074</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1737456480074</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -396,7 +386,8 @@
     <MESSAGE value="Update hippique.db link" />
     <MESSAGE value="change in requirement.txt" />
     <MESSAGE value="adding rootdir" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding rootdir" />
+    <MESSAGE value="adding main script with config" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding main script with config" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

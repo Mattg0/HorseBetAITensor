@@ -47,14 +47,14 @@ def main():
     y = df_results['position'].astype(int)  # Ensure target variable is integer
 
     # Check for NaN or infinite values in X and y
-    print("Checking for NaN values in X:")
-    print(X.isnull().sum())
-    print("Checking for infinite values in X:")
-    print(np.isinf(X).sum())
-    print("Checking for NaN values in y:")
-    print(y.isnull().sum())
-    print("Checking for infinite values in y:")
-    print(np.isinf(y).sum())
+#    print("Checking for NaN values in X:")
+#    print(X.isnull().sum())
+#    print("Checking for infinite values in X:")
+#    print(np.isinf(X).sum())
+#    print("Checking for NaN values in y:")
+#    print(y.isnull().sum())
+#    print("Checking for infinite values in y:")
+#    print(np.isinf(y).sum())
 
     # Proceed only if there are no NaN values
     if X.isnull().any().any() or y.isnull().any():

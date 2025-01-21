@@ -67,9 +67,10 @@ def process_results(data):
 
     df_results = pd.DataFrame(results)
     df_results['position'] = pd.to_numeric(df_results['narrivee'], errors='coerce').fillna(0)
-
+    print(f"Shape of the df_results before dropna: {df_results.shape}")
     # Drop rows where 'age' or 'idJockey' is NaN
     df_results = df_results.dropna(subset=['age', 'idJockey'])
+    print(f"Shape of the after dropna: {df_results.shape}")
 
     return df_results
 
@@ -101,11 +102,12 @@ def main():
     conn.close()
 
     # Check for NaN values in df_results
-    print("Checking for NaN values in df_results:")
-    print(df_results.isnull().sum())
-    print(f"Shape of the df_results: {df_results.shape}")
+   # print("Checking for NaN values in df_results:")
+    #print(df_results.isnull().sum())
+    print(f"Shape of the df_results after process: {df_results.shape}")
     # Assign unique integer values to combinations of natpis, typec, and meteo
     df_results = assign_value_to_combinations(df_results)
+    print(f"Shape of the df_results after combination: {df_results.shape}")
 
     return df_results
 

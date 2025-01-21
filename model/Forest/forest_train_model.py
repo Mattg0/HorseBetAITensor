@@ -5,6 +5,7 @@ import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 import joblib
+import datetime
 from env_setup import setup_environment
 from core.prep_history_data import main as get_historical_races
 
@@ -27,6 +28,7 @@ def build_model(input_shape):
         tf.keras.layers.Dense(32, activation='relu'),
         tf.keras.layers.Dense(1)  # Assuming regression on finishing position
     ])
+
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error', metrics=['mae'])
     return model
 
@@ -72,7 +74,9 @@ def main():
     model = build_model(X_train_scaled.shape[1])
 
     # Train the model
-    model.fit(X_train_scaled, y_train, epochs=10, batch_size=32, validation_split=0.2, verbose=1)
+    log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+    model.fit(X_train_scaled, y_train, epochs=10, batch_size=32, validation_split=0.2, verbose=1,callbacks=[tensorboard_callback])
 
     # Save the model, scaler, and label encoders
     save_model_and_scaler(model, scaler, le_idche, le_idJockey,config)

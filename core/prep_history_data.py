@@ -103,7 +103,7 @@ def main():
     # Check for NaN values in df_results
     print("Checking for NaN values in df_results:")
     print(df_results.isnull().sum())
-
+    print(f"Shape of the df_results: {df_results.shape}")
     # Assign unique integer values to combinations of natpis, typec, and meteo
     df_results = assign_value_to_combinations(df_results)
 

@@ -7,6 +7,7 @@ import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 import joblib
+import datetime
 import hashlib
 import numpy as np
 import os
@@ -84,7 +85,9 @@ def main():
 
     # Train the model
     print('Training model...')
-    model.fit(X_train_reshaped, y_train, epochs=10, batch_size=16, validation_split=0.2, verbose=1)
+    log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+    model.fit(X_train_reshaped, y_train, epochs=10, batch_size=16, validation_split=0.2, verbose=1,callback=tensorboard_callback)
 
     # Save the model, scaler, and label encoders
     save_model_and_scaler(model, scaler, le_idche, le_idJockey)

@@ -87,7 +87,7 @@ def main():
     print('Training model...')
     log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
-    model.fit(X_train_reshaped, y_train, epochs=10, batch_size=16, validation_split=0.2, verbose=1,callback=tensorboard_callback)
+    model.fit(X_train_reshaped, y_train, epochs=10, batch_size=16, validation_split=0.2, verbose=1,callbacks=[tensorboard_callback])
 
     # Save the model, scaler, and label encoders
     save_model_and_scaler(model, scaler, le_idche, le_idJockey)

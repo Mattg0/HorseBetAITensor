@@ -90,7 +90,7 @@ def main():
     os.chdir(root_dir)
 
     # Get the database path from the config
-    db_name = config['databases'][1]['relative_path']
+    db_name = config['databases'][0]['relative_path']
 
     # Connect to DB
     conn= connect_to_db(db_name)

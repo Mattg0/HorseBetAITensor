@@ -32,7 +32,12 @@ def fetch_combined_data(conn):
     JOIN 
         Resultats r ON c.comp = r.comp 
     """
-    return pd.read_sql_query(query, conn)
+    df = pd.read_sql_query(query, conn)
+
+    # Print the number of rows returned
+    num_rows = df.shape[0]
+    print(f"Number of rows returned: {num_rows}")
+    return df
 
 def process_results(data):
     """Process the results and extract relevant information."""

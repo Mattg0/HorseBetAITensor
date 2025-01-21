@@ -1,16 +1,13 @@
 import sys
 sys.path.append('../../')
 import pandas as pd
-import json
-import sqlite3
 import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 import joblib
-import hashlib
-import numpy as np  # Import numpy for numerical checks
+from env_setup import setup_environment
 from core.prep_history_data import main as get_historical_races
-import time
+
 
 def encode_targets(y):
     """Encode target variable."""
@@ -33,15 +30,22 @@ def build_model(input_shape):
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), loss='mean_squared_error', metrics=['mae'])
     return model
 
-def save_model_and_scaler(model, scaler, label_encoder_idche, label_encoder_idJockey):
-    """Save the model and scaler to disk."""
-    timestr = time.strftime("%Y%m%d-%H%M%S")
-    model.save('model/race_model.keras')
-    joblib.dump(scaler, 'model/scaler.pkl')
-    joblib.dump(label_encoder_idche, 'model/label_encoder_idche.pkl')
-    joblib.dump(label_encoder_idJockey, 'model/label_encoder_idJockey.pkl')
+def save_model_and_scaler(model, scaler, label_encoder_idche, label_encoder_idJockey, config):
+    """Save the model and scaler to disk using paths from the config."""
+    # Get paths from the configuration
+    model_path = config['model'][1]['filepath']+config['model'][1]['racemodelKERAS']  # Adjust index if necessary
+    scaler_path = config['model'][1]['filepath']+config['model'][1]['scaler']  # Adjust index if necessary
+    label_encoder_idche_path = config['model'][1]['filepath']+config['model'][1]['label_encoder_idche']  # Adjust index if necessary
+    label_encoder_idJockey_path = config['model'][1]['filepath']+config['model'][1]['label_encoder_idJockey']  # Adjust index if necessary
+
+    # Save the model and scaler to disk
+    model.save(model_path)
+    joblib.dump(scaler, scaler_path)
+    joblib.dump(label_encoder_idche, label_encoder_idche_path)
+    joblib.dump(label_encoder_idJockey, label_encoder_idJockey_path)
 
 def main():
+    config = setup_environment()
     # get_data
     df_results = get_historical_races()
 
@@ -71,7 +75,7 @@ def main():
     model.fit(X_train_scaled, y_train, epochs=10, batch_size=32, validation_split=0.2, verbose=1)
 
     # Save the model, scaler, and label encoders
-    save_model_and_scaler(model, scaler, le_idche, le_idJockey)
+    save_model_and_scaler(model, scaler, le_idche, le_idJockey,config)
 
     # Evaluate the model
     loss, mae = model.evaluate(X_test_scaled, y_test)

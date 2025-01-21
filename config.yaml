@@ -1,0 +1,44 @@
+# Configuration file for HorseBetAITensor AI project
+
+rootdir: /
+alt_rootdir: /HorseBetAITensor
+datadir: data
+
+databases:
+  - name: full
+    relative_path: data/hippique.db
+  - name: lite
+    relative_path: data/lite_hippique.db
+
+bet_type:
+  - name: tierce
+    value: 3
+  - name: quarte
+    value: 4
+  - name: quinte
+    value: 5
+
+model:
+  - name: "lstm"
+    path: "model/LSTM"
+    filepath: "model/LSTM/generated/"
+    train_script: "lstm_train_model.py"
+    predict_script: "lstm_predict_race.py"
+    labelencoder: "lstm_label_encoder.pkl"
+    label_encoder_idche: "lstm_label_encoder_idche.pkl"
+    label_encoder_idJockey: "lstm_label_encoder_idJockey.pkl"
+    racemodelKERAS: "lstm_race_model.keras"
+    scaler: "lstm_scaler.pkl"
+  - name: "forest"
+    path: "model/Forest"
+    filepath: "model/Forest/generated/"
+    train_script: "forest_train_model.py"
+    predict_script: "forest_predict_race.py"
+    labelencoder: "label_encoder.pkl"
+    label_encoder_idche: "label_encoder_idche.pkl"
+    label_encoder_idJockey: "label_encoder_idJockey.pkl"
+    racemodelKERAS: "race_model.keras"
+    scaler: "scaler.pkl"
+
+test_comp_id: 15521
+

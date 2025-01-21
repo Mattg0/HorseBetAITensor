@@ -1,5 +1,3 @@
-import sys
-sys.path.append('../../')
 import pandas as pd
 import json
 import sqlite3
@@ -8,17 +6,27 @@ import joblib  # For loading the scaler and label encoder
 from core.format_coursedata import main as fetch_next_race
 import hashlib
 import numpy as np
+from env_setup import setup_environment
+
 
 def connect_to_db(db_path):
     """Connect to the SQLite database."""
     return sqlite3.connect(db_path)
 
-def load_model_and_scaler():
-    """Load the model and scaler from disk."""
-    model = tf.keras.models.load_model('model/race_model_tlms.keras')
-    scaler = joblib.load('model/scaler_tlms.pkl')
-    label_encoder_idche = joblib.load('model/label_encoder_idche_tlms.pkl')
-    label_encoder_idJockey = joblib.load('model/label_encoder_idJockey_tlms.pkl')
+def load_model_and_scalers(config):
+    """Load the model, scaler, and label encoders from disk using paths from the config."""
+    # Get paths from the configuration
+    model_path = config['model'][0]['filepath']+config['model'][0]['racemodelKERAS']  # Adjust index if necessary for the correct model
+    scaler_path = config['model'][0]['filepath']+config['model'][0]['scaler']  # Adjust index if necessary
+    label_encoder_idche_path = config['model'][0]['filepath']+config['model'][0]['label_encoder_idche']  # Adjust index if necessary
+    label_encoder_idJockey_path = config['model'][0]['filepath']+config['model'][0]['label_encoder_idJockey']  # Adjust index if necessary
+
+    # Load the model and scaler from disk
+    model = tf.keras.models.load_model(model_path)
+    scaler = joblib.load(scaler_path)
+    label_encoder_idche = joblib.load(label_encoder_idche_path)
+    label_encoder_idJockey = joblib.load(label_encoder_idJockey_path)
+
     return model, scaler, label_encoder_idche, label_encoder_idJockey
 
 def assign_value_to_combinations(df):
@@ -42,6 +50,7 @@ def safe_transform(encoder, values):
 
 
 def main(comp_to_predict,bet_type):
+     config=setup_environment()
     # Fetch the next race data
      next_race_data = json.loads(fetch_next_race(comp_to_predict))
 
@@ -55,8 +64,8 @@ def main(comp_to_predict,bet_type):
      df_next_race['jour'] = next_race_data ['course_info'].get('jour',None)
 
     # Load the model and scaler
-     model, scaler, label_encoder_idche, label_encoder_idJockey = load_model_and_scaler()
-     print("Loaded existing model and scaler.")
+     model, scaler, label_encoder_idche, label_encoder_idJockey = load_model_and_scalers(config)
+
 
     # Print model summary for debugging
      model.summary()
@@ -68,7 +77,7 @@ def main(comp_to_predict,bet_type):
    #  df_next_race['idJockey'] = safe_transform(label_encoder_idJockey, df_next_race['idJockey'])
 
     # Prepare the input features for the model
-     feature_columns = ['idche', 'jour','idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist','corde']
+     feature_columns = ['idche', 'jour','idJockey', 'age', 'typec', 'natpis', 'meteo', 'dist','corde','cotedirect','coteprob']
 
     # Check if all required columns exist
      missing_cols = set(feature_columns) - set(df_next_race.columns)

@@ -1,24 +1,31 @@
-import sys
-sys.path.append('../../')
 import pandas as pd
 import json
 import sqlite3
 import tensorflow as tf
 import joblib  # For loading the scaler and label encoder
 from core.format_coursedata import main as fetch_next_race
+from env_setup import setup_environment
 import hashlib
-import numpy as np
+
 
 def connect_to_db(db_path):
     """Connect to the SQLite database."""
     return sqlite3.connect(db_path)
 
-def load_model_and_scaler():
-    """Load the model and scaler from disk."""
-    model = tf.keras.models.load_model('model/race_model.keras')
-    scaler = joblib.load('model/scaler.pkl')
-    label_encoder_idche = joblib.load('model/label_encoder_idche.pkl')
-    label_encoder_idJockey = joblib.load('model/label_encoder_idJockey.pkl')
+def load_model_and_scalers(config):
+    """Load the model, scaler, and label encoders from disk using paths from the config."""
+    # Get paths from the configuration
+    model_path = config['model'][1]['filepath']+config['model'][1]['racemodelKERAS']  # Adjust index if necessary for the correct model
+    scaler_path = config['model'][1]['filepath']+config['model'][1]['scaler']  # Adjust index if necessary
+    label_encoder_idche_path = config['model'][1]['filepath']+config['model'][1]['label_encoder_idche']  # Adjust index if necessary
+    label_encoder_idJockey_path = config['model'][1]['filepath']+config['model'][1]['label_encoder_idJockey']  # Adjust index if necessary
+
+    # Load the model and scaler from disk
+    model = tf.keras.models.load_model(model_path)
+    scaler = joblib.load(scaler_path)
+    label_encoder_idche = joblib.load(label_encoder_idche_path)
+    label_encoder_idJockey = joblib.load(label_encoder_idJockey_path)
+
     return model, scaler, label_encoder_idche, label_encoder_idJockey
 
 def assign_value_to_combinations(df):
@@ -33,6 +40,7 @@ def assign_value_to_combinations(df):
     return df
 
 def main(comp_to_predict,bet_type):
+    config=setup_environment()
     # Fetch the next race data
     next_race_data = json.loads(fetch_next_race(comp_to_predict))
 
@@ -46,7 +54,7 @@ def main(comp_to_predict,bet_type):
     df_next_race['corde'] = next_race_data['course_info'].get('corde', None)
 
     # Load the model and scaler
-    model, scaler, label_encoder_idche, label_encoder_idJockey = load_model_and_scaler()
+    model, scaler, label_encoder_idche, label_encoder_idJockey = load_model_and_scalers(config)
 
     # Assign race profiles to the next race data
     df_next_race = assign_value_to_combinations(df_next_race)

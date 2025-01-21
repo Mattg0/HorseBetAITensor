@@ -5,7 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="adding rootdir">
+      <change afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/env_setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/insert_participants.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/prep_history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/label_encoder.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/label_encoder.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/label_encoder_idJockey.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idJockey.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/label_encoder_idJockey_tlms.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/generated/lstm_label_encoder_idJockey.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/label_encoder_idche.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idche.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/label_encoder_idche_tlms.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/generated/lstm_label_encoder_idche.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/race_model.keras" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/race_model.keras" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/race_model_tlms.keras" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/generated/lstm_race_model.keras" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/scaler.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/scaler.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/scaler_tlms.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/generated/lstm_scaler.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +97,7 @@
     "Python.insert_participants.executor": "Run",
     "Python.jokey_db_connector.executor": "Run",
     "Python.lstm_predict_race.executor": "Run",
-    "Python.lstm_train_model.executor": "Run",
+    "Python.lstm_train_model.executor": "Debug",
     "Python.main.executor": "Run",
     "Python.predict_race.executor": "Run",
     "Python.requests.executor": "Run",
@@ -98,58 +116,14 @@
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/model/LSTM/generated" />
+      <recent name="$PROJECT_DIR$/model/Forest/generated" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/core/API_Connectors" />
       <recent name="$PROJECT_DIR$/core/DB_Connectors" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/data" />
-      <recent name="$PROJECT_DIR$/scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.forest_train_model">
-    <configuration name="AI_perf" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/AI_perf.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="course_db_connector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/DB_Connectors/course_db_connector.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.main">
     <configuration name="forest_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
@@ -194,6 +168,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="lstm_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HorseBetAI" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model/LSTM" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="lstm_train_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
@@ -216,20 +212,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HorseBetAI" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Python.lstm_predict_race" />
+      <item itemvalue="Python.main" />
       <item itemvalue="Python.lstm_train_model" />
-      <item itemvalue="Python.AI_perf" />
       <item itemvalue="Python.forest_predict_race" />
-      <item itemvalue="Python.course_db_connector" />
       <item itemvalue="Python.forest_train_model" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.forest_train_model" />
-        <item itemvalue="Python.lstm_train_model" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.lstm_predict_race" />
         <item itemvalue="Python.forest_predict_race" />
-        <item itemvalue="Python.course_db_connector" />
-        <item itemvalue="Python.AI_perf" />
+        <item itemvalue="Python.lstm_train_model" />
+        <item itemvalue="Python.forest_train_model" />
       </list>
     </recent_temporary>
   </component>
@@ -348,7 +366,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737389596995</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="adding rootdir">
+      <option name="closed" value="true" />
+      <created>1737389701601</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1737389701601</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -432,7 +458,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model/Forest/forest_predict_race.py</url>
-          <line>59</line>
+          <line>67</line>
           <option name="timeStamp" value="193" />
         </line-breakpoint>
       </breakpoints>

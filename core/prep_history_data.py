@@ -1,15 +1,14 @@
-import sys
-sys.path.append('..')
+import os
 import pandas as pd
 import json
 import sqlite3
-import tensorflow as tf
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.model_selection import train_test_split
-import joblib
 import hashlib
-import numpy as np  # Import numpy for numerical checks
+from env_setup import setup_environment
 
+config = setup_environment()
+# Change the current working directory to the root directory
+root_dir = config['rootdir']
+os.chdir(root_dir)
 
 def connect_to_db(db_path):
     """Connect to the SQLite database."""
@@ -85,10 +84,19 @@ def assign_value_to_combinations(df):
     return df
 
 def main():
-    # Connect to the database
-    conn = connect_to_db('data/hippique.db')
+    # Load configuration
+    config = setup_environment()
+    # Change the current working directory to the root directory
+    root_dir = config['rootdir']
+    os.chdir(root_dir)
 
+    # Get the database path from the config
+    db_name = config['databases'][0]['relative_path']
+
+    # Connect to DB
+    conn= connect_to_db(db_name)
     # Fetch and process the combined data
+
     data = fetch_combined_data(conn)
     df_results = process_results(data)
     conn.close()
@@ -101,3 +109,4 @@ def main():
     df_results = assign_value_to_combinations(df_results)
 
     return df_results
+

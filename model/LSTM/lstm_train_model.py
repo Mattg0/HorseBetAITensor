@@ -31,10 +31,10 @@ def build_lstm_model(input_shape):
 def save_model_and_scaler(model, scaler, label_encoder_idche, label_encoder_idJockey):
     """Save the model and scaler to disk."""
     os.makedirs('model', exist_ok=True)  # Create the directory if it doesn't exist
-    model.save('model/race_model_tlms.keras')
-    joblib.dump(scaler, 'model/scaler_tlms.pkl')
-    joblib.dump(label_encoder_idche, 'model/label_encoder_idche_tlms.pkl')
-    joblib.dump(label_encoder_idJockey, 'model/label_encoder_idJockey_tlms.pkl')
+    model.save('model/lstm_race_model.keras')
+    joblib.dump(scaler, 'model/lstm_scaler.pkl')
+    joblib.dump(label_encoder_idche, 'model/lstm_label_encoder_idche.pkl')
+    joblib.dump(label_encoder_idJockey, 'model/lstm_label_encoder_idJockey.pkl')
 
 def main():
 

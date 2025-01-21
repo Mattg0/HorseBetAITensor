@@ -1,7 +1,7 @@
 # Configuration file for HorseBetAITensor AI project
 
+#rootdir: /Users/mattg0/Docs/HorseBetAITensor
 rootdir: /HorseBetAITensor
-datadir: data
 
 databases:
   - name: full

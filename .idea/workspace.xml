@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="updating link">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="removing coteprob, fixing NaN">
       <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/requests.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/requests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/prep_history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setting.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -396,7 +388,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737462809541</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="removing coteprob, fixing NaN">
+      <option name="closed" value="true" />
+      <created>1737465527997</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1737465527997</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -420,7 +420,8 @@
     <MESSAGE value="adding rootdir" />
     <MESSAGE value="adding main script with config" />
     <MESSAGE value="updating link" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating link" />
+    <MESSAGE value="removing coteprob, fixing NaN" />
+    <option name="LAST_COMMIT_MESSAGE" value="removing coteprob, fixing NaN" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

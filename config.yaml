@@ -2,8 +2,8 @@
 # Configuration file for HorseBetAITensor AI project
 
 # Root directory - uncomment the appropriate line for your environment
-rootdir: "/Users/mattg0/Docs/HorseBetAITensor/"
-#rootdir: "/HorseBetAITensor"
+#rootdir: "/Users/mattg0/Docs/HorseBetAITensor/"
+rootdir: "/HorseBetAITensor"
 
 # Path configurations
 paths:

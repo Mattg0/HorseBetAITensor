@@ -4,8 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="removing coteprob, fixing NaN">
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="xchange db">
+      <change afterPath="$PROJECT_DIR$/model/Claude/claude_predict_race.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/Claude/claude_train_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/Claude/features.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/Claude/models/architectures.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/cache_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/preprocessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/Resultats_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/Resultats_db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/course_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/course_db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/format_coursedata.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/prep_history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/env_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/env_setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/forest_train_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idJockey.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idJockey.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idche.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idche.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/generated/race_model.keras" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/race_model.keras" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Forest/generated/scaler.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model/Forest/generated/scaler.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/generated/lstm_label_encoder_idJockey.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/generated/lstm_label_encoder_idche.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/generated/lstm_race_model.keras" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LSTM/generated/lstm_scaler.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/AI_perf.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/AI_perf.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,13 +89,16 @@
     "Python.Tensor_tierce.executor": "Debug",
     "Python.api_fetcher.executor": "Run",
     "Python.cheval_db_connector.executor": "Run",
+    "Python.claude_predict_race (1).executor": "Run",
+    "Python.claude_predict_race.executor": "Run",
+    "Python.claude_train_model.executor": "Run",
     "Python.course_db_connector.executor": "Run",
     "Python.courses_test_connector.executor": "Run",
     "Python.createdb.executor": "Run",
     "Python.db_helper.executor": "Run",
     "Python.entraineur_db_connector.executor": "Run",
     "Python.fill_db.executor": "Run",
-    "Python.forest_predict_race.executor": "Run",
+    "Python.forest_predict_race.executor": "Debug",
     "Python.forest_train_model.executor": "Run",
     "Python.format_coursedata.executor": "Run",
     "Python.get_hippiquedb.executor": "Run",
@@ -78,35 +106,42 @@
     "Python.initialisedb.executor": "Run",
     "Python.insert_participants.executor": "Run",
     "Python.jokey_db_connector.executor": "Run",
-    "Python.lstm_predict_race.executor": "Run",
+    "Python.lstm_predict_race.executor": "Debug",
     "Python.lstm_train_model.executor": "Run",
+    "Python.main (1).executor": "Run",
     "Python.main.executor": "Run",
+    "Python.predict.executor": "Run",
+    "Python.predict2.executor": "Run",
     "Python.predict_race.executor": "Run",
     "Python.requests.executor": "Debug",
     "Python.test_libs.executor": "Run",
     "Python.toolbox.pi.executor": "Debug",
+    "Python.train (1).executor": "Run",
+    "Python.train.executor": "Run",
     "Python.train_model.executor": "Run",
+    "Python.train_new.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/mattg0/Docs/HorseBetAITensor",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+    "last_opened_file_path": "/Users/mattg0/Docs/HorseBetAITensor/model/Claude2",
+    "settings.editor.selected.configurable": "editor.preferences.tabs"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/model/Claude2" />
       <recent name="$PROJECT_DIR$/scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/utils" />
       <recent name="$PROJECT_DIR$/model/LSTM/generated" />
       <recent name="$PROJECT_DIR$/model/Forest/generated" />
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/core/API_Connectors" />
-      <recent name="$PROJECT_DIR$/core/DB_Connectors" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.lstm_train_model">
-    <configuration name="forest_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="claude_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -119,7 +154,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Forest/forest_predict_race.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Claude/claude_predict_race.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -128,51 +163,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="lstm_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model/LSTM" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="lstm_train_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="claude_train_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -185,7 +176,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Claude/claude_train_model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -194,42 +185,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="requests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core/DB_Connectors" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/DB_Connectors/requests.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.lstm_predict_race" />
-      <item itemvalue="Python.main" />
-      <item itemvalue="Python.requests" />
-      <item itemvalue="Python.lstm_train_model" />
-      <item itemvalue="Python.forest_predict_race" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.lstm_train_model" />
-        <item itemvalue="Python.requests" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.lstm_predict_race" />
-        <item itemvalue="Python.forest_predict_race" />
+        <item itemvalue="Python.claude_train_model" />
       </list>
     </recent_temporary>
   </component>
@@ -396,7 +354,79 @@
       <option name="project" value="LOCAL" />
       <updated>1737465527997</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="removing coteprob, fixing NaN">
+      <option name="closed" value="true" />
+      <created>1737465583310</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1737465583310</updated>
+    </task>
+    <task id="LOCAL-00020" summary="removing coteprob, fixing NaN">
+      <option name="closed" value="true" />
+      <created>1737465632810</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1737465632810</updated>
+    </task>
+    <task id="LOCAL-00021" summary="removing coteprob, fixing NaN">
+      <option name="closed" value="true" />
+      <created>1737465812903</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1737465812904</updated>
+    </task>
+    <task id="LOCAL-00022" summary="removing coteprob, fixing NaN">
+      <option name="closed" value="true" />
+      <created>1737467696334</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1737467696334</updated>
+    </task>
+    <task id="LOCAL-00023" summary="removing coteprob, fixing NaN">
+      <option name="closed" value="true" />
+      <created>1737467810912</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1737467810912</updated>
+    </task>
+    <task id="LOCAL-00024" summary="debug">
+      <option name="closed" value="true" />
+      <created>1737468498601</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1737468498601</updated>
+    </task>
+    <task id="LOCAL-00025" summary="debug">
+      <option name="closed" value="true" />
+      <created>1737468953059</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1737468953059</updated>
+    </task>
+    <task id="LOCAL-00026" summary="xchange db">
+      <option name="closed" value="true" />
+      <created>1737470541733</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1737470541733</updated>
+    </task>
+    <task id="LOCAL-00027" summary="xchange db">
+      <option name="closed" value="true" />
+      <created>1737480315415</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1737480315415</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -421,7 +451,9 @@
     <MESSAGE value="adding main script with config" />
     <MESSAGE value="updating link" />
     <MESSAGE value="removing coteprob, fixing NaN" />
-    <option name="LAST_COMMIT_MESSAGE" value="removing coteprob, fixing NaN" />
+    <MESSAGE value="debug" />
+    <MESSAGE value="xchange db" />
+    <option name="LAST_COMMIT_MESSAGE" value="xchange db" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -487,9 +519,108 @@
           <option name="timeStamp" value="193" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/core/prep_history_data.py</url>
-          <line>103</line>
-          <option name="timeStamp" value="197" />
+          <url>file://$PROJECT_DIR$/model/LSTM/lstm_predict_race.py</url>
+          <line>73</line>
+          <option name="timeStamp" value="200" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude2/predictor.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="281" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude2/preprocessor.py</url>
+          <line>18</line>
+          <option name="timeStamp" value="287" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude2/preprocessor.py</url>
+          <line>36</line>
+          <option name="timeStamp" value="313" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude2/features.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="315" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude2/features.py</url>
+          <line>151</line>
+          <option name="timeStamp" value="324" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude2/claude_predict_race.py</url>
+          <option name="timeStamp" value="325" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude/predictor.py</url>
+          <line>92</line>
+          <option name="timeStamp" value="329" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude/predictor.py</url>
+          <line>93</line>
+          <option name="timeStamp" value="330" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude/predictor.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="331" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude/features.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="358" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude/features.py</url>
+          <line>131</line>
+          <option name="timeStamp" value="359" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude/features.py</url>
+          <line>142</line>
+          <option name="timeStamp" value="360" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude/predict2.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="362" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude/claude_predict_race.py</url>
+          <line>173</line>
+          <option name="timeStamp" value="363" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model/Claude/predictor.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="364" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>91</line>
+          <option name="timeStamp" value="375" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>90</line>
+          <option name="timeStamp" value="376" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>85</line>
+          <option name="timeStamp" value="377" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>86</line>
+          <option name="timeStamp" value="378" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="379" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -500,5 +631,10 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="df_next_race" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

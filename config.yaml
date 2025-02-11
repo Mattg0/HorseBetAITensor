@@ -1,43 +1,83 @@
 # Configuration file for HorseBetAITensor AI project
+# Configuration file for HorseBetAITensor AI project
 
-#rootdir: /Users/mattg0/Docs/HorseBetAITensor
-rootdir: /HorseBetAITensor
+# Root directory - uncomment the appropriate line for your environment
+rootdir: "/Users/mattg0/Docs/HorseBetAITensor/"
+#rootdir: "/HorseBetAITensor"
 
+# Path configurations
+paths:
+  data: "data"
+  models: "model"
+  logs: "logs"
+  cache: "cache"
+
+# Database configurations
 databases:
-  - name: full
-    relative_path: data/hippique.db
-  - name: lite
-    relative_path: data/lite_hippique.db
+  - name: "full"
+    path: "data/hippique.db"
+  - name: "lite"
+    path: "data/lite_hippique.db"
+  - name: "mysql"
+    host: "localhost"
+    user: "turfai"
+    password: "welcome123"
+    database: "pturf2015"
 
+# Bet type configurations
 bet_type:
-  - name: tierce
+  - name: "tierce"
     value: 3
-  - name: quarte
+  - name: "quarte"
     value: 4
-  - name: quinte
+  - name: "quinte"
     value: 5
 
+# Model configurations
 model:
   - name: "lstm"
     path: "model/LSTM"
-    filepath: "model/LSTM/generated/"
     train_script: "lstm_train_model.py"
     predict_script: "lstm_predict_race.py"
-    labelencoder: "lstm_label_encoder.pkl"
-    label_encoder_idche: "lstm_label_encoder_idche.pkl"
-    label_encoder_idJockey: "lstm_label_encoder_idJockey.pkl"
-    racemodelKERAS: "lstm_race_model.keras"
-    scaler: "lstm_scaler.pkl"
+    artifacts:
+      label_encoder: "lstm_label_encoder.pkl"
+      label_encoder_idche: "lstm_label_encoder_idche.pkl"
+      label_encoder_idJockey: "lstm_label_encoder_idJockey.pkl"
+      model: "lstm_race_model.keras"
+      scaler: "lstm_scaler.pkl"
+    logs: "logs/lstm"
+
   - name: "forest"
     path: "model/Forest"
-    filepath: "model/Forest/generated/"
     train_script: "forest_train_model.py"
     predict_script: "forest_predict_race.py"
-    labelencoder: "label_encoder.pkl"
-    label_encoder_idche: "label_encoder_idche.pkl"
-    label_encoder_idJockey: "label_encoder_idJockey.pkl"
-    racemodelKERAS: "race_model.keras"
-    scaler: "scaler.pkl"
+    artifacts:
+      label_encoder: "label_encoder.pkl"
+      label_encoder_idche: "label_encoder_idche.pkl"
+      label_encoder_idJockey: "label_encoder_idJockey.pkl"
+      model: "race_model.keras"
+      scaler: "scaler.pkl"
+    logs: "logs/forest"
 
-test_comp_id: 15521
+  - name: "claude"
+    path: "model/Claude"
+    train_script: "claude_train_model.py"
+    predict_script: "claude_predict_race.py"
+    artifacts:
+      model: "claude_race_model.keras"
+      preprocessor: "preprocessor.pkl"
+      feature_engineer: "feature_engineer.pkl"
+      scaler: "scaler.pkl"
+    logs: "logs/claude"
+  - name: "hybrid"
+    path: "model/Claude"
+    train_script: "claude_train_model.py"
+    predict_script: "claude_predict_race.py"
+    artifacts:
+      rf_model: "rf_model.joblib"
+      lstm_model: "lstm_model.keras"
+      feature_engineer: "feature_engineering.joblib"
+    logs: "logs/hybrid"
+
+test_comp_id: 931496
 

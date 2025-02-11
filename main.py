@@ -3,93 +3,130 @@ import sys
 import subprocess
 from env_setup import setup_environment
 
+
 def change_to_root_directory(root_dir):
+    """Change the working directory to the specified root directory."""
     try:
         os.chdir(root_dir)
         print(f"Changed working directory to: {os.getcwd()}")
     except FileNotFoundError:
         print(f"Error: The directory {root_dir} does not exist.")
-        exit(0)
+        sys.exit(1)
+
 
 def execute_script(script_path, args=None):
-    command = ['python', script_path]
+    """Execute a Python script with optional arguments."""
+    command = [sys.executable, script_path]
     if args:
-        command.extend(args)  # Add additional arguments if any
+        command.extend(args)
     try:
         subprocess.run(command, check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error executing script {script_path}: {e}")
+        sys.exit(1)
+
 
 def get_bet_type_value(bet_type_name, bet_types):
     """Retrieve the value of the specified bet type."""
     bet_type = next((bt for bt in bet_types if bt['name'] == bet_type_name), None)
     return bet_type['value'] if bet_type else None
 
-def main(model_name, mode,comp_to_predict=None, bet_type_name=None):
+
+def get_model_config(model_name, config):
+    """Get model configuration based on model name."""
+    return next((m for m in config['model'] if m['name'] == model_name), None)
+
+
+def validate_inputs(model_name, mode, bet_type_name, config):
+    """Validate input parameters against configuration."""
+    # Validate model
+    model = get_model_config(model_name, config)
+    if not model:
+        print(f"Error: Model '{model_name}' not found in configuration.")
+        return False
+
+    # Validate mode
+    valid_modes = ['train', 'predict']
+    if mode not in valid_modes:
+        print(f"Error: Invalid mode '{mode}'. Must be one of {valid_modes}")
+        return False
+
+    # Validate bet type if provided
+    if bet_type_name:
+        bet_type = next((bt for bt in config['bet_type'] if bt['name'] == bet_type_name), None)
+        if not bet_type:
+            print(f"Error: Bet type '{bet_type_name}' not found in configuration.")
+            return False
+
+    return True
+
+
+def main(model_name, mode, comp_to_predict=None, bet_type_name=None):
+    """Main function to handle model training and prediction."""
     # Load configuration
     config = setup_environment()
 
-    # Change the current working directory to the root directory
-    change_to_root_directory(config['rootdir'])
-
-    # Determine which model to use based on the provided model name
-    model = next((m for m in config['model'] if m['name'] == model_name), None)
-
-    if model is None:
-        print(f"Model '{model_name}' not found in configuration.")
+    # Validate inputs
+    if not validate_inputs(model_name, mode, bet_type_name, config):
         return
 
-    # Get the bet type value if bet_type_name is provided
-    bet_type_value = None
-    if bet_type_name is not None:
-        bet_type_value = get_bet_type_value(bet_type_name, config['bet_type'])
-        if bet_type_value is None:
-            print(f"Bet type '{bet_type_name}' not found in configuration.")
-            return
+    # Change to root directory
+    change_to_root_directory(config['rootdir'])
 
-    # Determine the script path based on the mode (train or predict)
+    # Get model configuration
+    model = get_model_config(model_name, config)
+
+    # Get bet type value if provided
+    bet_type_value = None
+    if bet_type_name:
+        bet_type_value = get_bet_type_value(bet_type_name, config['bet_type'])
+
+    # Determine script path and execute - scripts are in the filepath directory
     if mode == 'train':
         script_path = os.path.join(model['path'], model['train_script'])
         print(f"Executing training script: {script_path}")
         execute_script(script_path)
+
     elif mode == 'predict':
         script_path = os.path.join(model['path'], model['predict_script'])
         print(f"Executing prediction script: {script_path}")
 
-        # Pass the bet type value as an argument if found
+        # Prepare arguments for prediction
         args = []
-        if bet_type_value is not None:
-            args.append(comp_to_predict)
-            args.append(str(bet_type_value))  # Convert to string if needed
+        if comp_to_predict:
+            args.append(str(comp_to_predict))
+        if bet_type_value:
+            args.append(str(bet_type_value))
 
         execute_script(script_path, args)
-    else:
-        print("Invalid mode specified. Please use 'train' or 'predict'.")
-        return
+
 
 if __name__ == "__main__":
-    # Default values for training and prediction
-    default_model = 'forest'  # Default model
-    default_comp_to_predict = '1552621'  # Default competition ID
-    default_bet_type_name = 'tierce'  # Default bet type
+    # Default values
+    default_model = 'claude'  # Updated to use claude as default model
+    default_comp_id = '15521'  # Using test_comp_id from config
+    default_bet_type = 'tierce'
 
-    # Check the number of arguments
-    if len(sys.argv) == 3:  # Expecting 2 arguments: model_name and mode (for training)
-        model_to_use = sys.argv[1]  # e.g., 'forest' or 'lstm'
-        mode = sys.argv[2]           # e.g., 'train' or 'predict'
-        comp_to_predict = None       # No competition ID needed for training
-        bet_type_name = None         # No bet type needed for training
-    elif len(sys.argv) == 5:  # Expecting 4 arguments: model_name, mode, comp_to_predict, bet_type_name (for prediction)
-        model_to_use = sys.argv[1]       # e.g., 'forest' or 'lstm'
-        mode = sys.argv[2]                # e.g., 'train' or 'predict'
-        comp_to_predict = sys.argv[3]     # e.g., '1552621'
-        bet_type_name = sys.argv[4]       # e.g., 'tierce'
+    if len(sys.argv) == 3:  # model_name and mode only
+        model_to_use = sys.argv[1]
+        mode = sys.argv[2]
+        comp_to_predict = None
+        bet_type_name = None
+
+    elif len(sys.argv) == 5:  # full prediction command
+        model_to_use = sys.argv[1]
+        mode = sys.argv[2]
+        comp_to_predict = sys.argv[3]
+        bet_type_name = sys.argv[4]
+
     else:
-        # Assign default values
+        print("Usage:")
+        print("  Training: python main.py <model_name> train")
+        print("  Prediction: python main.py <model_name> predict <comp_id> <bet_type>")
+        print(f"Using defaults: model={default_model}, mode=train")
         model_to_use = default_model
-        mode = "train"  # Default to training mode
-        comp_to_predict = None  # No competition ID for training
-        bet_type_name = None  # No bet type for training
+        mode = "train"
+        comp_to_predict = None
+        bet_type_name = None
 
-    # Call the main function with the determined values
     main(model_to_use, mode, comp_to_predict, bet_type_name)

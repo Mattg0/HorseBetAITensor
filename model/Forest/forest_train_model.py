@@ -12,7 +12,7 @@ from core.prep_history_data import main as get_historical_races
 
 def encode_targets(y):
     """Encode target variable."""
-    label_encoder = LabelEncoder()
+    label_encoder = LabelEncoder()@
     return label_encoder.fit_transform(y), label_encoder
 
 def encode_categorical_features(df):

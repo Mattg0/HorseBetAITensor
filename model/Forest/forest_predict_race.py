@@ -109,4 +109,4 @@ def main(comp_to_predict,bet_type):
     return predict_arriv
 
 if __name__ == "__main__":
-    main('1552621',3)  # Replace with the actual competition ID you want to predict
+    main('931496',3)  # Replace with the actual competition ID you want to predict

@@ -46,6 +46,7 @@ def transform_data(data, columns):
     participants = []
 
     # Identify the indices of the relevant columns
+    comp_index = columns.index('id')
     hippo_index = columns.index('hippo')
     jour_index = columns.index('jour')
     meteo_index = columns.index('meteo')
@@ -64,6 +65,7 @@ def transform_data(data, columns):
         # Store course info (only keep the first occurrence)
         if not course_info:
             course_info = {
+                'comp': row[comp_index],
                 'hippo': row[hippo_index],
                 'jour': row[jour_index],
                 'meteo': row[meteo_index],
@@ -102,7 +104,7 @@ def main(comp):
     mysql_host = "localhost"  # Change this to your MySQL host
     mysql_user = "turfai"  # Change this to your MySQL username
     mysql_password = "welcome123"  # Change this to your MySQL password
-    mysql_db = "pturf2024"  # Change this to your MySQL database name
+    mysql_db = "pturf2015"  # Change this to your MySQL database name
     mysql_query = f"""
     SELECT caractrap.id, caractrap.jour, caractrap.hippo, caractrap.meteo, caractrap.dist,caractrap.typec,
            caractrap.corde, caractrap.natpis, caractrap.pistegp, caractrap.arriv,

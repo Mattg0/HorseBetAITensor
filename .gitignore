@@ -1,3 +1,5 @@
 docker-containers/
 data/hippique.db
 data/lite_hippique.db
+logs/
+cache/

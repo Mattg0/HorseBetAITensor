@@ -160,7 +160,7 @@ def main(sqlite_db,year):
     mysql_host = "127.0.0.1"  # Change this to your MySQL host
     mysql_user = "turfai"  # Change this to your MySQL username
     mysql_password = "welcome123"  # Change this to your MySQL password
-    mysql_db = ("pturf"+year)  # Change this to your MySQL database name
+    mysql_db = ("pturf"+str(year))  # Change this to your MySQL database name
     mysql_query = """
     SELECT caractrap.id, caractrap.jour, caractrap.hippo, caractrap.meteo, caractrap.dist,
            caractrap.corde, caractrap.natpis, caractrap.pistegp, caractrap.arriv,caractrap.typec,
@@ -183,4 +183,4 @@ def main(sqlite_db,year):
 
 
 if __name__ == "__main__":
-    main('data/hippique.db',2024)
+    main('data/lite_hippique.db',2014)

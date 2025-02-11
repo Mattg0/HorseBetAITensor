@@ -107,11 +107,11 @@ def main():
     mysql_host = "127.0.0.1"  # Change this to your MySQL host
     mysql_user = "turfai"  # Change this to your MySQL username
     mysql_password = "welcome123"  # Change this to your MySQL password
-    mysql_db = "pturf2024"  # Change this to your MySQL database name
+    mysql_db = "pturf2014"  # Change this to your MySQL database name
     mysql_query = "SELECT comp, cl, numero, idche FROM cachedate;"  # Your MySQL query
 
     # SQLite database file
-    sqlite_db = "../data/lite_hippique.db"
+    sqlite_db = "data/lite_hippique.db"
 
     # Fetch data from MySQL
     data, columns = fetch_data_from_mysql(mysql_host, mysql_user, mysql_password, mysql_db, mysql_query)

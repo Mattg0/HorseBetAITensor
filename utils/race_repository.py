@@ -16,9 +16,9 @@ class RaceRepository:
                     comp, jour, hippodrome, reun, prix, heure, prixnom,
                     meteo, dist, corde, natpis, pistegp, typec,
                     temperature, forceVent, directionVent, nebulosite,
-                    participants
+                    participants, quinte,cheque
                 ) VALUES (
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?
                 )
             ''', (
                 race_data['comp'],
@@ -38,7 +38,9 @@ class RaceRepository:
                 race_data['forceVent'],
                 race_data['directionVent'],
                 race_data['nebulosite'],
-                race_data['participants']
+                race_data['participants'],
+                race_data['quinte'],
+                race_data['cheque']
             ))
 
     def get_unpredicted_races(self, date: str) -> List[Dict]:
@@ -70,24 +72,24 @@ class RaceRepository:
                 VALUES (?, ?, ?, ?)
             ''', (comp, bet_type, sequence, confidence))
 
-    def migrate_to_training_db(self, training_db_path: str):
-        """Migrate predicted races to training database."""
-        with self.db.get_connection() as temp_conn:
-            with sqlite3.connect(training_db_path) as train_conn:
-                # Get all predicted races
-                races = temp_conn.execute('''
-                    SELECT jour, comp, hippodrome, meteo, dist, corde, 
-                           natpis, pistegp, typec, temperature, forceVent, 
-                           directionVent, nebulosite, participants
-                    FROM daily_races
-                    WHERE predicted = 1
-                ''').fetchall()
-
-                # Insert into training database
-                train_conn.executemany('''
-                    INSERT INTO Course (
-                        jour, comp, hippodrome, meteo, dist, corde,
-                        natpis, pistegp, typec, temperature, forceVent,
-                        directionVent, nebulosite, participants
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ''', races)
+    # def migrate_to_training_db(self, training_db_path: str):
+    #     """Migrate predicted races to training database."""
+    #     with self.db.get_connection() as temp_conn:
+    #         with sqlite3.connect(training_db_path) as train_conn:
+    #             # Get all predicted races
+    #             races = temp_conn.execute('''
+    #                 SELECT jour, comp, hippodrome, meteo, dist, corde,
+    #                        natpis, pistegp, typec, temperature, forceVent,
+    #                        directionVent, nebulosite, participants
+    #                 FROM daily_races
+    #                 WHERE predicted = 1
+    #             ''').fetchall()
+    #
+    #             # Insert into training database
+    #             train_conn.executemany('''
+    #                 INSERT INTO Course (
+    #                     jour, comp, hippodrome, meteo, dist, corde,
+    #                     natpis, pistegp, typec, temperature, forceVent,
+    #                     directionVent, nebulosite, participants
+    #                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    #             ''', races)

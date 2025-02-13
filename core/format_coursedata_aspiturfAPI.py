@@ -93,6 +93,7 @@ class RaceDataFetcher:
         # Extract course info following the same structure as format_coursedata
         course_info = {
             'comp': numcourse.get('comp'),
+            'quinte': numcourse.get('quinte'),
             'hippo': numcourse.get('hippo'),
             'jour': numcourse.get('jour'),
             'meteo': numcourse.get('meteo'),
@@ -104,7 +105,8 @@ class RaceDataFetcher:
             'temperature': self.safe_convert_to_float(numcourse.get('temperature')),
             'forceVent': self.safe_convert_to_float(numcourse.get('forceVent')),
             'directionVent': numcourse.get('directionVent'),
-            'nebulositeLibelleCourt': numcourse.get('nebulositeLibelleCourt')
+            'nebulositeLibelleCourt': numcourse.get('nebulositeLibelleCourt'),
+
         }
 
         # Extract participants data following the same structure as format_coursedata

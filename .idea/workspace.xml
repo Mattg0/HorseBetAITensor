@@ -4,38 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="increasing epoch to 100 for Vastai">
-      <change afterPath="$PROJECT_DIR$/bot_prediction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/api/race_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/format_coursedata_aspiturfAPI.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/format_dailyrace_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/Performance_tester.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/TelegramBotPrediction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/race_formatter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/race_repository.py" afterDir="false" />
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="working bot that sends all the races predictions to telegram">
+      <change afterPath="$PROJECT_DIR$/utils/TelegramNotifier.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/API_Connectors/api_helper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_prediction.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_prediction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/DB_Connectors/Resultats_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/Resultats_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/course_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/course_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/courses_test_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/DB_Connectors/courses_test_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/format_coursedata.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/env_setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/format_coursedata_aspiturfAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata_aspiturfAPI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/Claude/claude_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Claude/claude_predict_race.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Claude/features.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Claude/features.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_predict_race.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/forest_train_model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/generated/label_encoder.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idJockey.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/generated/label_encoder_idche.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/generated/race_model.keras" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Forest/generated/scaler.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_predict_race.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LSTM/lstm_train_model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/AI_perf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/DataVisualizer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/TelegramBotPrediction.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/race_formatter.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/race_formatter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/race_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/race_repository.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +36,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Claude" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -96,7 +74,7 @@
     "Python.Predict.executor": "Run",
     "Python.Predict_tensor.executor": "Run",
     "Python.Predict_torch.executor": "Run",
-    "Python.Resultats_db_connector.executor": "Debug",
+    "Python.Resultats_db_connector.executor": "Run",
     "Python.TelegramBotPrediction.executor": "Run",
     "Python.Tensor_tierce.executor": "Debug",
     "Python.api_fetcher.executor": "Run",
@@ -136,7 +114,7 @@
     "Python.train_new.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Claude",
+    "git-widget-placeholder": "smartBOt",
     "last_opened_file_path": "/Users/mattg0/Docs/HorseBetAITensor/model/Claude2",
     "settings.editor.selected.configurable": "editor.preferences.tabs"
   }
@@ -154,7 +132,29 @@
       <recent name="$PROJECT_DIR$/model/LSTM/generated" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.bot_prediction">
+  <component name="RunManager" selected="Python.Resultats_db_connector">
+    <configuration name="Resultats_db_connector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HorseBetAI" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/DB_Connectors/Resultats_db_connector.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="TelegramBotPrediction" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
@@ -243,28 +243,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="format_coursedata_aspiturfAPI" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/format_coursedata_aspiturfAPI.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
@@ -288,19 +266,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.Resultats_db_connector" />
       <item itemvalue="Python.main" />
       <item itemvalue="Python.bot_prediction" />
       <item itemvalue="Python.claude_predict_race" />
-      <item itemvalue="Python.format_coursedata_aspiturfAPI" />
       <item itemvalue="Python.TelegramBotPrediction" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Resultats_db_connector" />
         <item itemvalue="Python.bot_prediction" />
         <item itemvalue="Python.claude_predict_race" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.TelegramBotPrediction" />
-        <item itemvalue="Python.format_coursedata_aspiturfAPI" />
       </list>
     </recent_temporary>
   </component>
@@ -563,7 +541,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739274321756</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="working bot that sends all the races predictions to telegram">
+      <option name="closed" value="true" />
+      <created>1739452319400</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1739452319400</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -592,7 +578,8 @@
     <MESSAGE value="xchange db" />
     <MESSAGE value="claudemodel" />
     <MESSAGE value="switch config for vastAI" />
-    <option name="LAST_COMMIT_MESSAGE" value="switch config for vastAI" />
+    <MESSAGE value="working bot that sends all the races predictions to telegram" />
+    <option name="LAST_COMMIT_MESSAGE" value="working bot that sends all the races predictions to telegram" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -723,7 +710,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model/Claude/claude_predict_race.py</url>
-          <line>229</line>
+          <line>230</line>
           <option name="timeStamp" value="363" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -752,14 +739,9 @@
           <option name="timeStamp" value="392" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/core/format_coursedata_aspiturfAPI.py</url>
-          <line>155</line>
-          <option name="timeStamp" value="398" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/scripts/TelegramBotPrediction.py</url>
-          <line>354</line>
-          <option name="timeStamp" value="401" />
+          <url>file://$PROJECT_DIR$/core/DB_Connectors/Resultats_db_connector.py</url>
+          <line>126</line>
+          <option name="timeStamp" value="416" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

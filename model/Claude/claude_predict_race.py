@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import joblib
+import json
 from typing import Dict, Tuple, Union
 from env_setup import setup_environment, get_model_paths
 from core.format_dailyrace_data import main as get_race_data
@@ -292,53 +293,76 @@ class HorseRacePredictor:
             return 0.0
 
     def predict_race(self, comp_id: int, bet_type: str = 'tierce', return_sequence_only: bool = False) -> Union[
-        pd.DataFrame, str]:
+        pd.DataFrame, Dict]:
         """
         Predict race outcomes using both RF and LSTM models.
 
         Args:
             comp_id: Competition ID
             bet_type: Type of bet ('tierce', 'quarte', or 'quinte')
-            return_sequence_only: If True, returns only the sequence string (e.g., "1-2-3")
+            return_sequence_only: If True, returns only sequence and confidence
 
         Returns:
-            Either DataFrame with full predictions or string with number sequence
+            Either DataFrame with full predictions or Dict with sequence and confidence
         """
-        # Validate bet type
-        bet_type = bet_type.lower()
-        if bet_type not in ['tierce', 'quarte', 'quinte']:
-            raise ValueError("bet_type must be one of: 'tierce', 'quarte', 'quinte'")
-
-        # Map bet type to number of positions
-        bet_positions = {
-            'tierce': 3,
-            'quarte': 4,
-            'quinte': 5
-        }
-        num_positions = bet_positions[bet_type]
-
-        if not return_sequence_only:
-            print(f"\nPredicting outcomes for race {comp_id} ({bet_type.upper()})...")
-
-        # Get race data
-        race_data_json = get_race_data(comp_id)
-        if race_data_json is None:
-            raise ValueError(f"No data found for race {comp_id}")
-
         try:
+            # Map bet type to number of positions
+            bet_positions = {
+                'tierce': 3,
+                'quarte': 4,
+                'quinte': 5
+            }
+
+            bet_type = bet_type.lower()
+            if bet_type not in bet_positions:
+                raise ValueError(f"Invalid bet_type: {bet_type}. Must be one of: tierce, quarte, quinte")
+
+            num_positions = bet_positions[bet_type]
+            print(f"Processing {bet_type} prediction for {num_positions} positions")  # Debug print
+
+            # Get race data
+            race_data = get_race_data(comp_id)
+            if not race_data:
+                raise ValueError(f"No data found for race {comp_id}")
+
             # Parse JSON data
-            import json
-            race_data = json.loads(race_data_json)
+            race_data = json.loads(race_data)
 
             # Create DataFrame from race data
-            participants = race_data['participants']
-            df = pd.DataFrame(participants)
+            df = pd.DataFrame(race_data['participants'])
 
             # Add race info to each row
             for key, value in race_data['course_info'].items():
                 df[key] = value
 
-            # Hash categorical columns before feature extraction
+            # Process predictions
+            df_processed = self._process_race_data(df)
+
+            # Get predictions for specified number of positions
+            predictions = self._get_top_predictions(df_processed, num_positions)
+
+            # Calculate confidence score
+            confidence_score = self.calculate_confidence_score(predictions, num_positions)
+
+            # Generate result sequence
+            sequence = "-".join(predictions['numero'].astype(str).tolist())
+
+            if return_sequence_only:
+                return {
+                    'sequence': sequence,
+                    'confidence': confidence_score
+                }
+
+            return predictions
+
+        except Exception as e:
+            print(f"Error in predict_race: {str(e)}")
+            raise
+
+    def _process_race_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Process race data for prediction."""
+        try:
+            # Hash categorical columns
             df = self._hash_categorical_columns(df)
 
             # Extract and process features
@@ -369,47 +393,19 @@ class HorseRacePredictor:
                 'odds': df['cotedirect']
             })
 
-            # Sort and filter for bet type
+            # Sort by predicted position
             results = results.sort_values('predicted_position')
             results['predicted_rank'] = range(1, len(results) + 1)
-            bet_results = results.head(num_positions)
 
-            # Generate sequence
-            sequence = "-".join(bet_results['numero'].astype(str).tolist())
-            confidence_score = self.calculate_confidence_score(results, num_positions)
-
-            if return_sequence_only:
-                return {
-                    'sequence': sequence,
-                    'confidence': confidence_score
-                }
-
-            # Print full prediction output
-            if not return_sequence_only:
-                print(f"\n{bet_type.upper()} Prediction:")
-                print(bet_results[['horse_name', 'predicted_rank', 'odds']].to_string(index=False))
-                print(f"\n{bet_type.upper()} sequence:")
-                print(sequence)
-                print(f"Confidence Score: {confidence_score}%")
-
-            return bet_results, confidence_score
-            if return_sequence_only:
-                return sequence
-
-            # Print full prediction output
-            print(f"\n{bet_type.upper()} Prediction:")
-            print(bet_results[['horse_name', 'predicted_rank', 'odds']].to_string(index=False))
-            print(f"\n{bet_type.upper()} sequence:")
-            print(sequence)
-
-            return bet_results
+            return results
 
         except Exception as e:
-            if not return_sequence_only:
-                print(f"Error during prediction: {str(e)}")
+            print(f"Error processing race data: {str(e)}")
             raise
 
-            return sequence
+    def _get_top_predictions(self, df: pd.DataFrame, num_positions: int) -> pd.DataFrame:
+        """Get top N predictions from processed data."""
+        return df.head(num_positions)
 
 if __name__ == "__main__":
     # Example usage

@@ -41,7 +41,9 @@ class RaceFormatter:
             'temperature': safe_float(numcourse.get('temperature')),
             'forceVent': safe_float(numcourse.get('forceVent')),
             'directionVent': numcourse.get('directionVent'),
-            'nebulosite': numcourse.get('nebulositeLibelleCourt')
+            'nebulosite': numcourse.get('nebulositeLibelleCourt'),
+            'quinte': numcourse.get('quinte'),
+            'cheque': numcourse.get('cheque')
         }
 
         # Format participants as JSON string

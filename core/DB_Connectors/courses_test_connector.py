@@ -154,7 +154,7 @@ def main():
     mysql_host = "127.0.0.1"  # Change this to your MySQL host
     mysql_user = "turfai"  # Change this to your MySQL username
     mysql_password = "welcome123"  # Change this to your MySQL password
-    mysql_db = "pturf2024"  # Change this to your MySQL database name
+    mysql_db = "pturf2025"  # Change this to your MySQL database name
     mysql_query = """
     SELECT caractrap.id,caractrap.arriv, caractrap.jour, caractrap.hippo, caractrap.meteo, caractrap.dist,
            caractrap.corde, caractrap.natpis, caractrap.pistegp, caractrap.arriv,caractrap.typec,
@@ -162,7 +162,7 @@ def main():
            caractrap.nebulositeLibelleCourt, cachedate.idche, cachedate.cheval,
            cachedate.numero, musiqueche, cachedate.idJockey, musiquejoc, cachedate.idEntraineur,cachedate.age
     FROM caractrap
-    INNER JOIN cachedate ON caractrap.id = cachedate.comp WHERE caractrap.jour='2024-12-15'
+    INNER JOIN cachedate ON caractrap.id = cachedate.comp WHERE caractrap.jour='2025-01-01'
     """  # Change this to your MySQL query
 
     # SQLite database file

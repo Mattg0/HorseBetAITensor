@@ -2,8 +2,8 @@
 # Configuration file for HorseBetAITensor AI project
 
 # Root directory - uncomment the appropriate line for your environment
-#rootdir: "/Users/mattg0/Docs/HorseBetAITensor/"
-rootdir: "/HorseBetAITensor"
+rootdir: "/Users/mattg0/Docs/HorseBetAITensor/"
+#rootdir: "/HorseBetAITensor"
 
 # Path configurations
 paths:
@@ -22,7 +22,7 @@ databases:
     host: "localhost"
     user: "turfai"
     password: "welcome123"
-    database: "pturf2015"
+    database: "pturf2024"
 
 # Bet type configurations
 bet_type:
@@ -64,6 +64,7 @@ model:
     train_script: "claude_train_model.py"
     predict_script: "claude_predict_race.py"
     artifacts:
+      path: 'generated_models'
       model: "claude_race_model.keras"
       preprocessor: "preprocessor.pkl"
       feature_engineer: "feature_engineer.pkl"
@@ -74,10 +75,15 @@ model:
     train_script: "claude_train_model.py"
     predict_script: "claude_predict_race.py"
     artifacts:
+      path: 'generated_models'
       rf_model: "rf_model.joblib"
       lstm_model: "lstm_model.keras"
       feature_engineer: "feature_engineering.joblib"
     logs: "logs/hybrid"
 
-test_comp_id: 931496
+telegram:
+  bot_token: '7638183617:AAHS8UaVJUtZkESC5C5TaTQQyEVlthBANls'
+  chat_id: '1051257832'
+
+test_comp_id: 1569175
 

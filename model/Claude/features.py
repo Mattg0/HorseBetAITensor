@@ -241,12 +241,12 @@ class FeatureEngineering:
 
     def extract_all_features(self, df: pd.DataFrame, is_training: bool = True) -> pd.DataFrame:
         """Extract and combine all features."""
-        print("Starting feature extraction...")
+       # print("Starting feature extraction...")
         features = df.copy()
 
         try:
             # Extract musique features for each row
-            print("Extracting musique features...")
+       #     print("Extracting musique features...")
             musique_features_list = []
             for musique in features['musiqueche']:
                 musique_features = self.musique_extractor.extract_features(musique)
@@ -257,20 +257,20 @@ class FeatureEngineering:
             features = pd.concat([features, musique_df], axis=1)
 
             # Calculate additional features
-            print("Calculating horse features...")
+       #     print("Calculating horse features...")
             features = self.calculate_horse_features(features, is_training)
 
-            print("Calculating jockey features...")
+       #     print("Calculating jockey features...")
             features = self.calculate_jockey_features(features, is_training)
 
-            print("Calculating race features...")
+       #     print("Calculating race features...")
             features = self.calculate_race_features(features)
 
         except Exception as e:
-            print(f"Error during feature extraction: {str(e)}")
+       #     print(f"Error during feature extraction: {str(e)}")
             raise
 
-        print("Feature extraction completed successfully")
+       # print("Feature extraction completed successfully")
         return features
 
     def get_feature_columns(self) -> List[str]:

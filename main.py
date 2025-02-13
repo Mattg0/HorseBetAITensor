@@ -98,14 +98,18 @@ def main(model_name, mode, comp_to_predict=None, bet_type_name=None):
         if bet_type_value:
             args.append(str(bet_type_value))
 
-        execute_script(script_path, args)
+
+        prediction=execute_script(script_path, args)
+        return prediction
+
+
 
 
 if __name__ == "__main__":
     # Default values
     default_model = 'claude'  # Updated to use claude as default model
-    default_comp_id = '15521'  # Using test_comp_id from config
-    default_bet_type = 'tierce'
+    default_comp_id = '1569175'  # Using test_comp_id from config
+    default_bet_type = 'quarte'
 
     if len(sys.argv) == 3:  # model_name and mode only
         model_to_use = sys.argv[1]
@@ -129,4 +133,5 @@ if __name__ == "__main__":
         comp_to_predict = None
         bet_type_name = None
 
-    main(model_to_use, mode, comp_to_predict, bet_type_name)
+    prediction = main(model_to_use, mode, comp_to_predict, bet_type_name)
+    print('return from main:'+ prediction)

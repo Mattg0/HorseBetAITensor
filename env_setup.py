@@ -14,7 +14,9 @@ def setup_environment(config_path: str = 'config.yaml') -> Dict[str, Any]:
         Dict containing the configuration
     """
     # Load configuration
-    with open(config_path, 'r') as file:
+
+
+    with open(config_path, 'r', encoding='utf-8', errors='ignore') as file:
         config = yaml.safe_load(file)
 
     # Convert root directory to absolute path

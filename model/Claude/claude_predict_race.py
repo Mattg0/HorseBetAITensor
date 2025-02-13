@@ -5,9 +5,10 @@ import tensorflow as tf
 import joblib
 from typing import Dict, Tuple, Union
 from env_setup import setup_environment, get_model_paths
-from core.format_coursedata import main as get_race_data
+from core.format_dailyrace_data import main as get_race_data
 from core.prep_history_data import main as get_historical_races
 from utils.cache_manager import CacheManager
+
 
 class HorseRacePredictor:
     def __init__(self, config_path: str = 'config.yaml', model_name: str = 'hybrid', sequence_length: int = 5):
@@ -62,6 +63,9 @@ class HorseRacePredictor:
             # Load raw historical data
             historical_df = get_historical_races()
 
+            # Hash categorical columns before feature extraction
+            historical_df = self._hash_categorical_columns(historical_df)
+
             # Process the data
             self.historical_data = self.feature_engineering.extract_all_features(historical_df)
 
@@ -72,6 +76,62 @@ class HorseRacePredictor:
             print(f"Error loading historical data: {e}")
             raise
 
+    def calculate_confidence_score(self, results: pd.DataFrame, num_positions: int) -> float:
+        """
+        Calculate confidence score based on various factors:
+        - Odds distribution
+        - Model agreement (RF vs LSTM)
+        - Gap between predicted positions
+        - Historical performance statistics
+
+        Returns a score between 0 and 100
+        """
+        try:
+            # Get top N horses based on bet type
+            top_horses = results.head(num_positions)
+
+            # 1. Model Agreement Score (0-25 points)
+            rf_lstm_corr = self._calculate_correlation(
+                top_horses['rf_prediction'].values,
+                top_horses['lstm_prediction'].values
+            )
+            model_agreement_score = max(0, min(25, rf_lstm_corr * 25))
+
+            # 2. Odds Confidence (0-25 points)
+            # Higher score if favorites are in predicted positions
+            odds_sorted = top_horses['odds'].sort_values()
+            actual_odds = top_horses['odds'].values
+            odds_correlation = self._calculate_correlation(odds_sorted.values, actual_odds)
+            odds_score = max(0, min(25, (1 - abs(odds_correlation)) * 25))
+
+            # 3. Position Gap Score (0-25 points)
+            # Calculate gaps between predicted positions
+            position_gaps = np.diff(top_horses['predicted_position'].values)
+            avg_gap = np.mean(position_gaps)
+            gap_score = max(0, min(25, (avg_gap / 0.5) * 25))  # Normalize by expected gap
+
+            # 4. Prediction Stability (0-25 points)
+            # Calculate variance in predictions between models
+            prediction_variance = np.mean([
+                np.var([row['rf_prediction'], row['lstm_prediction']])
+                for _, row in top_horses.iterrows()
+            ])
+            stability_score = max(0, min(25, (1 - prediction_variance) * 25))
+
+            # Combine scores
+            total_confidence = (
+                    model_agreement_score +
+                    odds_score +
+                    gap_score +
+                    stability_score
+            )
+
+            # Normalize to 0-100 and round to nearest integer
+            return round(total_confidence)
+
+        except Exception as e:
+            print(f"Error calculating confidence score: {e}")
+            return 50  # Return neutral confidence on error
     def _get_latest_stats(self, df: pd.DataFrame) -> pd.DataFrame:
         """Get latest statistics for horses and jockeys from historical data."""
         df_copy = df.copy()
@@ -109,6 +169,36 @@ class HorseRacePredictor:
                         df_copy[col] = 0.5  # Default value if not available
 
         return df_copy
+
+    def _hash_categorical_columns(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Hash categorical columns consistently with training data."""
+        import hashlib
+
+        categorical_cols = ['natpis', 'typec', 'meteo', 'corde']
+        df = df.copy()
+
+        # Hash categorical columns
+        for col in categorical_cols:
+            if col in df.columns:
+                df[col] = df[col].astype(str).apply(
+                    lambda x: int(hashlib.md5(x.encode()).hexdigest(), 16) % (10 ** 8)
+                )
+
+        # Convert date to timestamp
+        if 'jour' in df.columns:
+            df['jour'] = pd.to_datetime(df['jour']).astype(int) // 10 ** 9
+
+        return df
+
+    def _safe_convert_to_float(self, value: Union[str, float]) -> float:
+        """Safely convert a value to float, handling non-numeric values."""
+        try:
+            float_val = float(value)
+            if np.isfinite(float_val):
+                return float_val
+            return 0.0
+        except (ValueError, TypeError):
+            return 0.0
 
     def prepare_sequence_data(self, df: pd.DataFrame, is_prediction: bool = True) -> Tuple[np.ndarray, np.ndarray]:
         """Prepare sequential data for LSTM prediction."""
@@ -194,116 +284,15 @@ class HorseRacePredictor:
 
         return sequences, static_features
 
-    def _format_prediction_output(self, results: pd.DataFrame) -> None:
-        """Format and print prediction results in a clean way."""
-        print("\n" + "=" * 50)
-        print("RACE PREDICTION RESULTS")
-        print("=" * 50)
-
-        # Format the main prediction table
-        prediction_table = results[['horse_name', 'predicted_rank', 'odds']].copy()
-        prediction_table['odds'] = prediction_table['odds'].map('{:.1f}'.format)
-        print(prediction_table.to_string(index=False))
-
-        # Print the numero sequence
-        print("\nPredicted finishing order (numbers):")
-        numero_sequence = results['numero'].astype(str).tolist()
-        print("-".join(numero_sequence))
-        print("-" * 50)
-
-    def _analyze_model_agreement(self, results: pd.DataFrame) -> Dict:
-        """Analyze agreement between RF and LSTM predictions."""
+    def _calculate_correlation(self, x: np.ndarray, y: np.ndarray) -> float:
+        """Calculate rank correlation between two arrays."""
         try:
-            # Calculate custom correlation
-            rank_correlation = self._calculate_correlation(
-                results['rf_prediction'],
-                results['lstm_prediction']
-            )
+            return np.corrcoef(x, y)[0, 1]
+        except:
+            return 0.0
 
-            # Calculate agreement on top 3
-            rf_top3 = set(results.nsmallest(3, 'rf_prediction')['horse_name'])
-            lstm_top3 = set(results.nsmallest(3, 'lstm_prediction')['horse_name'])
-            top3_agreement = len(rf_top3.intersection(lstm_top3)) / 3
-
-            # Calculate variances
-            rf_variance = results['rf_prediction'].std()
-            lstm_variance = results['lstm_prediction'].std()
-
-            agreement_data = {
-                'rank_correlation': rank_correlation,
-                'top3_agreement': top3_agreement,
-                'rf_variance': rf_variance,
-                'lstm_variance': lstm_variance
-            }
-
-            print("\nMODEL AGREEMENT ANALYSIS")
-            print("-" * 50)
-            print(f"Rank Correlation: {rank_correlation:.2f}")
-            print(f"Top 3 Agreement: {top3_agreement:.1%}")
-            print(f"Model Variances - RF: {rf_variance:.2f}, LSTM: {lstm_variance:.2f}")
-
-            if rank_correlation > 0.7 and top3_agreement >= 0.67:
-                print("Status: HIGH agreement between models")
-            elif rank_correlation < 0.3 or top3_agreement == 0:
-                print("Status: LOW agreement between models - treat with caution")
-            else:
-                print("Status: MODERATE agreement between models")
-
-            return agreement_data
-
-        except Exception as e:
-            print("Warning: Could not complete model agreement analysis")
-            return {
-                'rank_correlation': 0.0,
-                'top3_agreement': 0.0,
-                'rf_variance': 0.0,
-                'lstm_variance': 0.0
-            }
-
-    def analyze_confidence(self, predictions: pd.DataFrame, agreement_data: Dict) -> None:
-        """Analyze and display prediction confidence metrics."""
-        try:
-            # Calculate basic metrics
-            favorite_confidence = 1.0 / predictions.iloc[0]['odds'] if predictions.iloc[0]['odds'] > 0 else 0.0
-            top_3_odds_sum = predictions.head(3)['odds'].sum()
-            prediction_spread = predictions['predicted_position'].std()
-
-            print("\nPREDICTION CONFIDENCE ANALYSIS")
-            print("-" * 50)
-
-            # Print core metrics
-            print("Core Metrics:")
-            print(f"  Favorite Win Probability: {favorite_confidence:.1%}")
-            print(f"  Top 3 Combined Odds: {top_3_odds_sum:.1f}")
-            print(f"  Prediction Spread: {prediction_spread:.1f}")
-            print(f"  Model Agreement: {agreement_data['rank_correlation']:.2f}")
-
-            # Calculate confidence score
-            confidence_score = (
-                    min(1.0, favorite_confidence / 0.5) * 20 +
-                    min(1.0, 10 / max(0.1, top_3_odds_sum)) * 20 +
-                    min(1.0, prediction_spread / 2.0) * 20 +
-                    agreement_data['rank_correlation'] * 20 +
-                    min(1.0, (agreement_data['rf_variance'] + agreement_data['lstm_variance']) / 2) * 20
-            )
-
-            # Determine confidence level
-            if confidence_score >= 80:
-                confidence_level = "HIGH"
-            elif confidence_score >= 60:
-                confidence_level = "MEDIUM"
-            else:
-                confidence_level = "LOW"
-
-            print(f"\nOverall Confidence Level: {confidence_level}")
-            print(f"Confidence Score: {confidence_score:.1f}/100")
-            print("=" * 50)
-
-        except Exception as e:
-            print(f"\nWarning: Error in confidence analysis: {e}")
-            print("Unable to calculate confidence metrics")
-
-    def predict_race(self, comp_id: int, bet_type: str = 'tierce', return_sequence_only: bool = False) -> Union[pd.DataFrame, str]:
+    def predict_race(self, comp_id: int, bet_type: str = 'tierce', return_sequence_only: bool = False) -> Union[
+        pd.DataFrame, str]:
         """
         Predict race outcomes using both RF and LSTM models.
 
@@ -349,6 +338,9 @@ class HorseRacePredictor:
             for key, value in race_data['course_info'].items():
                 df[key] = value
 
+            # Hash categorical columns before feature extraction
+            df = self._hash_categorical_columns(df)
+
             # Extract and process features
             df_features = self.feature_engineering.extract_all_features(df, is_training=False)
             df_features = self._get_latest_stats(df_features)
@@ -384,7 +376,23 @@ class HorseRacePredictor:
 
             # Generate sequence
             sequence = "-".join(bet_results['numero'].astype(str).tolist())
+            confidence_score = self.calculate_confidence_score(results, num_positions)
 
+            if return_sequence_only:
+                return {
+                    'sequence': sequence,
+                    'confidence': confidence_score
+                }
+
+            # Print full prediction output
+            if not return_sequence_only:
+                print(f"\n{bet_type.upper()} Prediction:")
+                print(bet_results[['horse_name', 'predicted_rank', 'odds']].to_string(index=False))
+                print(f"\n{bet_type.upper()} sequence:")
+                print(sequence)
+                print(f"Confidence Score: {confidence_score}%")
+
+            return bet_results, confidence_score
             if return_sequence_only:
                 return sequence
 
@@ -401,8 +409,7 @@ class HorseRacePredictor:
                 print(f"Error during prediction: {str(e)}")
             raise
 
-
-
+            return sequence
 
 if __name__ == "__main__":
     # Example usage
@@ -413,10 +420,9 @@ if __name__ == "__main__":
 
     try:
         # Make predictions for the test race
-        predictions = predictor.predict_race(test_comp_id,bet_type='tierce', return_sequence_only=True)
+        predictions = predictor.predict_race(test_comp_id, bet_type='quinte', return_sequence_only=False)
         print(predictions)
         print("\nPrediction completed successfully!")
 
     except Exception as e:
         print(f"Error during prediction: {str(e)}")
-

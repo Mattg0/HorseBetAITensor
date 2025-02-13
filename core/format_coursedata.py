@@ -104,7 +104,7 @@ def main(comp):
     mysql_host = "localhost"  # Change this to your MySQL host
     mysql_user = "turfai"  # Change this to your MySQL username
     mysql_password = "welcome123"  # Change this to your MySQL password
-    mysql_db = "pturf2015"  # Change this to your MySQL database name
+    mysql_db = "pturf2024"  # Change this to your MySQL database name
     mysql_query = f"""
     SELECT caractrap.id, caractrap.jour, caractrap.hippo, caractrap.meteo, caractrap.dist,caractrap.typec,
            caractrap.corde, caractrap.natpis, caractrap.pistegp, caractrap.arriv,

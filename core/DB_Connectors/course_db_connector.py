@@ -183,4 +183,4 @@ def main(sqlite_db,year):
 
 
 if __name__ == "__main__":
-    main('data/lite_hippique.db',2014)
+    main('data/hippique.db',2025)

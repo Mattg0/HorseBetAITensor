@@ -67,7 +67,7 @@ class RacePredictionOrchestrator:
             print(f"Found race: {hippo} - {heure} - {prixnom} (Quinté: {is_quinte})")  # Debug print
 
             # Determine bet types based on race type
-            bet_types = ['tierce', 'quarte', 'quinte'] if is_quinte else ['tierce']
+            bet_types = ['tierce', 'quarte', 'quinte'] if is_quinte else ['quarte']
             print(f"Will predict for bet types: {bet_types}")  # Debug print
 
             # Get predictions for each bet type
@@ -142,32 +142,46 @@ class RacePredictionOrchestrator:
             ])
 
         return "\n".join(message)
-    def fetch_and_store_races(self) -> List[Dict]:
-        """Fetch today's races from API and process from database."""
-        """
-               Fetch today's races from API and process from database.
-               1. Get races list from API
-               2. Store new races in DB if they don't exist
-               3. Return race data from DB for display
-               """
-        today = datetime.now().strftime("%Y-%m-%d")
 
+    def fetch_and_store_races(self) -> List[Dict]:
+        """
+        Fetch today's races from API and process from database.
+        1. Get races list from API, filtering non-EUR races immediately
+        2. Store new races in DB if they don't exist
+        3. Return race data from DB for display
+        """
+        today = datetime.now().strftime("%Y-%m-%d")
         # First fetch today's races basic info from API
         daily_races = self.api.fetch_daily_races(today)
         if not daily_races:
             print("No races found for today")
             return []
 
+        # Filter out non-EUR races early
+        eur_races = []
+        for race in daily_races:
+            numcourse = race.get('numcourse', {})
+            if numcourse.get('devise', 'EUR') != 'EUR':
+                print(f"Skipping non-EUR race {numcourse.get('comp')}, currency: {numcourse.get('devise')}")
+                continue
+            eur_races.append(race)
+
+        if not eur_races:
+            print("No EUR races found for today")
+            return []
+
+        print(f"Found {len(eur_races)} EUR races out of {len(daily_races)} total races")
+
         # Check existing races in database
         with self.db.get_connection() as conn:
             cursor = conn.execute('''
-                       SELECT comp FROM daily_races 
-                       WHERE jour = ?
-                   ''', (today,))
+                SELECT comp FROM daily_races 
+                WHERE jour = ?
+            ''', (today,))
             existing_races = {row[0] for row in cursor.fetchall()}
 
         # Store any new races in database
-        for race_data in daily_races:
+        for race_data in eur_races:
             try:
                 comp_id = race_data['numcourse']['comp']
 
@@ -192,14 +206,14 @@ class RacePredictionOrchestrator:
                 print(f"Error storing race {race_data['numcourse'].get('comp')}: {e}")
                 continue
 
-        # Fetch all today's races from database
+        # Fetch all today's EUR races from database
         with self.db.get_connection() as conn:
             cursor = conn.execute('''
-                       SELECT dr.*, json_extract(dr.participants, '$') as participants_json
-                       FROM daily_races dr
-                       WHERE jour = ?
-                       ORDER BY reun, prix
-                   ''', (today,))
+                SELECT dr.*, json_extract(dr.participants, '$') as participants_json
+                FROM daily_races dr
+                WHERE jour = ?
+                ORDER BY reun, prix
+            ''', (today,))
 
             columns = [description[0] for description in cursor.description]
             db_races = []

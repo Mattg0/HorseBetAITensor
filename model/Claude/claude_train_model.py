@@ -188,15 +188,15 @@ class HorseRaceModel:
         save_dir.mkdir(parents=True, exist_ok=True)
 
         # Save RF model
-        rf_path = save_dir / 'rf_model.joblib'
+        rf_path = save_dir / 'rf_model_2y.joblib'
         joblib.dump(self.models['rf'], rf_path)
 
         # Save LSTM model
-        lstm_path = save_dir / 'lstm_model.keras'
+        lstm_path = save_dir / 'lstm_model_2y.keras'
         self.models['lstm'].save(lstm_path)
 
         # Save feature engineering component
-        feature_path = save_dir / 'feature_engineering.joblib'
+        feature_path = save_dir / 'feature_engineering_2y.joblib'
         joblib.dump(self.feature_engineering, feature_path)
 
         print(f"Models and components saved to {save_dir}")

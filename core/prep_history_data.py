@@ -163,7 +163,7 @@ def main():
         return pd.read_parquet(cache_file)
 
     # Process data if cache doesn't exist
-    db_config = next((db for db in config['databases'] if db['name'] == 'full'), None)
+    db_config = next((db for db in config['databases'] if db['name'] == '2years'), None)
     if not db_config:
         raise ValueError("Lite database configuration not found")
 

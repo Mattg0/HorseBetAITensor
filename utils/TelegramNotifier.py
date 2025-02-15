@@ -78,11 +78,6 @@ class TelegramNotifier:
                 'callback_data': callback_data
             }])
 
-        # Add legend at the bottom
-        message += "\n📝 <i>Légende:</i>\n"
-        message += "🌟 Course Quinté+\n"
-        message += "▫️ Course Standard\n"
-        message += "\nCliquez sur une course pour voir les pronostics"
 
         return message, keyboard
 

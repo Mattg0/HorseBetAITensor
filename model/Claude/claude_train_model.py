@@ -208,7 +208,7 @@ class HorseRaceModel:
             history = self.models['lstm'].fit(
                 [seq_features, static_seq],
                 targets,
-                epochs=1,
+                epochs=100,
                 batch_size=32,
                 validation_split=0.2,
                 callbacks=callbacks,

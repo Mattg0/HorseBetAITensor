@@ -111,7 +111,7 @@ def main():
     mysql_query = "SELECT comp, cl, numero, idche FROM cachedate;"  # Your MySQL query
 
     # SQLite database file
-    sqlite_db = "data/hippique.db"
+    sqlite_db = "data/2y.db"
 
     # Fetch data from MySQL
     data, columns = fetch_data_from_mysql(mysql_host, mysql_user, mysql_password, mysql_db, mysql_query)

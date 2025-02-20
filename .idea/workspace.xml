@@ -4,37 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="updating rootdir">
-      <change afterPath="$PROJECT_DIR$/core/db/daily_race_to_historical.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/Claude/models/incremental_trainer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/FeatureHandler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/delta_training.py" afterDir="false" />
+    <list default="true" id="d08a60cd-8f69-4bcf-b9b6-596be3839ad2" name="Changes" comment="config.yaml for training">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot_prediction.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_prediction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/Resultats_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/Resultats_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/cheval_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/cheval_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/course_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/course_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/courses_test_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/courses_test_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/daily_race_to_historical.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/db_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/db_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/entraineur_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/entraineur_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/get_hippiquedb.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/get_hippiquedb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/initialise_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/initialise_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/jokey_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/jokey_db_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/DB_Connectors/requests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/api/race_Resultats_API_Connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/api/race_Resultats_API_Connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/format_coursedata_aspiturfAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_coursedata_aspiturfAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/format_dailyrace_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/format_dailyrace_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/prep_history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/prep_history_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/env_setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Claude/claude_predict_race.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Claude/claude_predict_race.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/db/Resultats_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/Resultats_db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/db/course_db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/db/course_db_connector.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/Claude/claude_train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Claude/claude_train_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Claude/models/architectures.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Claude/models/architectures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Performance_tester.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/Performance_tester.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Run_all_daily_predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/Run_all_daily_predictions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/race_formatter.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/race_formatter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +157,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="claude_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Resultats_db_connector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -196,7 +170,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Claude/claude_predict_race.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/db/Resultats_db_connector.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -227,7 +201,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="daily_race_to_historical" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="claude_predict_race" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="HorseBetAI" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -236,11 +210,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/DB_Connectors/daily_race_to_historical.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Claude/claude_predict_race.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="course_db_connector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="HorseBetAI" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/db/course_db_connector.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -271,42 +267,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="incremental_trainer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="HorseBetAI" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/Claude/models/incremental_trainer.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.incremental_trainer" />
-      <item itemvalue="Python.daily_race_to_historical" />
+      <item itemvalue="Python.Resultats_db_connector" />
+      <item itemvalue="Python.course_db_connector" />
       <item itemvalue="Python.delta_training" />
       <item itemvalue="Python.Performance_tester" />
       <item itemvalue="Python.claude_predict_race" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.course_db_connector" />
+        <item itemvalue="Python.Resultats_db_connector" />
         <item itemvalue="Python.delta_training" />
         <item itemvalue="Python.claude_predict_race" />
         <item itemvalue="Python.Performance_tester" />
-        <item itemvalue="Python.incremental_trainer" />
-        <item itemvalue="Python.daily_race_to_historical" />
       </list>
     </recent_temporary>
   </component>
@@ -609,7 +583,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739648471712</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="almost working, commit to re-run training">
+      <option name="closed" value="true" />
+      <created>1740071406985</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1740071406985</updated>
+    </task>
+    <task id="LOCAL-00037" summary="config.yaml for training">
+      <option name="closed" value="true" />
+      <created>1740071439595</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1740071439595</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -641,7 +631,9 @@
     <MESSAGE value="working bot that sends all the races predictions to telegram" />
     <MESSAGE value="updating dbfile" />
     <MESSAGE value="updating rootdir" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating rootdir" />
+    <MESSAGE value="almost working, commit to re-run training" />
+    <MESSAGE value="config.yaml for training" />
+    <option name="LAST_COMMIT_MESSAGE" value="config.yaml for training" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -769,11 +761,6 @@
           <url>file://$PROJECT_DIR$/core/db/courses_test_connector.py</url>
           <line>181</line>
           <option name="timeStamp" value="389" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/core/db/Resultats_db_connector.py</url>
-          <line>126</line>
-          <option name="timeStamp" value="416" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model/Claude/claude_train_model.py</url>

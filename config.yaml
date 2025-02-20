@@ -1,6 +1,6 @@
 # Root directory - uncomment the appropriate line for your environment
-rootdir: "/Users/mattg0/Docs/HorseBetAITensor/"
-#rootdir: "/HorseBetAITensor"
+#rootdir: "/Users/mattg0/Docs/HorseBetAITensor/"
+rootdir: "/HorseBetAITensor"
 
 # Active database configuration
 active_db: "2years"  # Can be "full", "2years", or "5years"

@@ -3,12 +3,15 @@ import json
 from decimal import Decimal
 from typing import Dict, Optional, Any, List, Tuple
 from datetime import datetime
+from env_setup import setup_environment
 
 
 class RaceDataFetcher:
-    def __init__(self, api_key: str):
+    def __init__(self,config_path: str = 'config.yaml'):
         """Initialize with API key."""
-        self.api_key = api_key
+
+        self.config = setup_environment(config_path)
+        self.api_key =  self.api_key = self.config['aspiturf']['api_key']
         self.base_url = "https://api.aspiturf.com/api"
 
     def fetch_daily_races(self, date: str) -> List[Dict]:
@@ -133,8 +136,7 @@ class RaceDataFetcher:
 
 def main(comp_id: int = None) -> Optional[str]:
     """Main function to fetch and transform race data."""
-    api_key = "8cdfGeF4pHeSOPv05dPnVyGaghL2"
-    fetcher = RaceDataFetcher(api_key)
+    fetcher = RaceDataFetcher()
 
     # Get today's date
     today = datetime.now().strftime("%Y-%m-%d")

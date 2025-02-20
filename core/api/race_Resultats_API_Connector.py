@@ -6,24 +6,24 @@ import json
 from typing import Dict, List, Optional
 import time
 
-from env_setup import setup_environment
+from env_setup import setup_environment,get_database_path
 
 
 class ResultsFetcher:
     def __init__(self, config_path: str = 'config.yaml'):
         """Initialize results fetcher."""
         self.config = setup_environment(config_path)
-        self.api_key = "8cdfGeF4pHeSOPv05dPnVyGaghL2"
+        self.api_key = self.config['aspiturf']['api_key']
         self.base_url = "https://api.aspiturf.com/api"
         self.db = self._get_db_connection()
 
     def _get_db_connection(self) -> sqlite3.Connection:
-        """Get database connection."""
-        db_config = next((db for db in self.config['databases'] if db['name'] == 'full'), None)
-        if not db_config:
-            raise ValueError("Full database configuration not found")
-        db_path = Path(self.config['rootdir']) / db_config['path']
-        return sqlite3.connect(db_path)
+        db_path = get_database_path(self.config)
+        conn = sqlite3.connect(db_path)
+        conn.execute('PRAGMA journal_mode = WAL')
+        conn.execute('PRAGMA cache_size = -2000')
+        conn.execute('PRAGMA synchronous = NORMAL')
+        return conn
 
     def get_todays_races(self) -> List[Dict]:
         """Get all races for today that need results."""
@@ -70,7 +70,6 @@ class ResultsFetcher:
             return None
 
     def store_results(self, comp: int, results_data: List[Dict]):
-        """Store race results in database."""
         try:
             # Extract ordre_arrivee (finishing order)
             ordre_arrivee = []
@@ -81,15 +80,15 @@ class ResultsFetcher:
                 if cl is None:
                     continue
                 try:
-                    narrivee = int(cl)
-                except (ValueError, TypeError):
+                    # Ensure narrivee is converted to integer
+                    narrivee = int(cl) if cl.isdigit() else 99
+                except (ValueError, AttributeError):
                     narrivee = 99
 
-
                 ordre_arrivee.append({
-                    'numero': horse.get('numero'),
+                    'numero': str(horse.get('numero')),  # Ensure numero is string
                     'idche': horse.get('idChe'),
-                    'narrivee': narrivee
+                    'narrivee': narrivee  # This should now always be an integer
                 })
 
             if not ordre_arrivee:
@@ -106,8 +105,10 @@ class ResultsFetcher:
             """, (comp, json.dumps(ordre_arrivee)))
             self.db.commit()
 
-
             return True
+        except Exception as e:
+            print(f"Error storing results for race {comp}: {e}")
+            return False
         except Exception as e:
             print(f"Error storing results for race {comp}: {e}")
             return False
@@ -115,8 +116,8 @@ class ResultsFetcher:
     def run(self):
         """Fetch and store results for all of today's races."""
         print("Starting results collection...")
-       # today = datetime.now().strftime("%Y-%m-%d")
-        today = '2025-02-13'
+        today = datetime.now().strftime("%Y-%m-%d")
+        #today = '2025-02-13'
         races = self.get_todays_races()
 
         for race in races:

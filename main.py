@@ -61,9 +61,9 @@ def validate_inputs(model_name, mode, bet_type_name, config):
     return True
 
 
-def main(model_name, mode, comp_to_predict=None, bet_type_name=None):
+def main(model_name, mode, comp_to_predict=None, bet_type_name=None, db_type=None):
     """Main function to handle model training and prediction."""
-    # Load configuration
+    # Load configuration with optional database override
     config = setup_environment()
 
     # Validate inputs
@@ -81,14 +81,14 @@ def main(model_name, mode, comp_to_predict=None, bet_type_name=None):
     if bet_type_name:
         bet_type_value = get_bet_type_value(bet_type_name, config['bet_type'])
 
-    # Determine script path and execute - scripts are in the filepath directory
+    # Determine script path and execute
     if mode == 'train':
-        script_path = os.path.join(model['path'], model['train_script'])
+        script_path = os.path.join(model['base_path'], model['train_script'])
         print(f"Executing training script: {script_path}")
         execute_script(script_path)
 
     elif mode == 'predict':
-        script_path = os.path.join(model['path'], model['predict_script'])
+        script_path = os.path.join(model['base_path'], model['predict_script'])
         print(f"Executing prediction script: {script_path}")
 
         # Prepare arguments for prediction
@@ -98,17 +98,14 @@ def main(model_name, mode, comp_to_predict=None, bet_type_name=None):
         if bet_type_value:
             args.append(str(bet_type_value))
 
-
-        prediction=execute_script(script_path, args)
+        prediction = execute_script(script_path, args)
         return prediction
-
-
 
 
 if __name__ == "__main__":
     # Default values
-    default_model = 'claude'  # Updated to use claude as default model
-    default_comp_id = '1569792'  # Using test_comp_id from config
+    default_model = 'claude'
+    default_comp_id = '1569792'
     default_bet_type = 'quinte'
 
     if len(sys.argv) == 3:  # model_name and mode only
@@ -134,4 +131,3 @@ if __name__ == "__main__":
         bet_type_name = None
 
     prediction = main(model_to_use, mode, comp_to_predict, bet_type_name)
-

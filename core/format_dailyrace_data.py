@@ -7,7 +7,7 @@ from pathlib import Path
 
 sys.path.append('../../')
 
-from env_setup import setup_environment, get_model_paths
+from env_setup import setup_environment, get_model_paths,get_database_path
 
 
 def connect_to_db(db_path: str) -> sqlite3.Connection:
@@ -129,14 +129,9 @@ def main(comp_id: int) -> Optional[str]:
     config = setup_environment()
 
     # Get database path
-    db_config = next((db for db in config['databases'] if db['name'] == 'full'), None)
-    if not db_config:
-        print("Error: Full database configuration not found")
-        return None
-
-    db_path = Path(config['rootdir']) / db_config['path']
-
-    # Fetch and transform data
+    config = setup_environment()
+    # Get active database path
+    db_path = get_database_path(config)
     data, columns = fetch_race_data(str(db_path), comp_id)
     if data and columns:
         course_data = transform_data(data, columns)
@@ -147,6 +142,7 @@ def main(comp_id: int) -> Optional[str]:
 
 
 if __name__ == "__main__":
+
     if len(sys.argv) > 1:
         try:
             comp_id = int(sys.argv[1])

@@ -1,352 +1,346 @@
 import os
 import sys
+from pathlib import Path
 import pandas as pd
 import sqlite3
-from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Any
-from dataclasses import dataclass
-from datetime import datetime
 import json
-import numpy as np
-from scipy import stats
+from datetime import datetime
+from typing import Dict, List, Optional, Tuple
 
-# First get the config and set up paths
-from env_setup import setup_environment, get_model_paths
+# Add project root to path
+from env_setup import setup_environment, get_database_path
+from model.Claude.claude_predict_race import HorseRacePredictor
 
-# Load configuration
-config = setup_environment('config.yaml')
+class PerformanceTester:
+    """Analyzes prediction performance for horse races."""
 
-# Get paths from config
-project_root = Path(config['rootdir'])
-model_paths = get_model_paths(config, 'claude')  # Get claude model paths
-
-# Add necessary paths to Python path
-if str(project_root) not in sys.path:
-    sys.path.insert(0, str(project_root))
-if str(model_paths['base']) not in sys.path:
-    sys.path.insert(0, str(model_paths['base']))
-
-# Now we can import our project modules
-class QuintePlusEvaluator:
-    @staticmethod
-    def evaluate_quinte_prediction(prediction: str, actual: str) -> Dict[str, bool]:
-        """
-        Evaluate a Quinté+ prediction against actual results.
-        Returns detailed win types according to official Quinté+ rules.
-        """
-        if not prediction or not actual:
-            return {
-                'exact_order': False,
-                'any_order': False,
-                'bonus_4': False,
-                'bonus_3': False
-            }
-
-        pred_numbers = prediction.split('-')
-        actual_numbers = actual.split('-')
-
-        # Ensure we have 5 numbers for both
-        pred_numbers = pred_numbers[:5]
-        actual_numbers = actual_numbers[:5]
-
-        # Pad if necessary
-        while len(pred_numbers) < 5:
-            pred_numbers.append('0')
-        while len(actual_numbers) < 5:
-            actual_numbers.append('0')
-
-        # Check exact order (all 5 horses in correct order)
-        exact_order = pred_numbers == actual_numbers
-
-        # Check if all 5 horses are present in any order
-        any_order = set(pred_numbers) == set(actual_numbers)
-
-        # Check Bonus 4 (first 4 horses in any order)
-        pred_set_4 = set(pred_numbers[:4])
-        actual_set_4 = set(actual_numbers[:4])
-        bonus_4 = len(pred_set_4.intersection(actual_set_4)) == 4
-
-        # Check Bonus 3 (first 3 horses in any order)
-        pred_set_3 = set(pred_numbers[:3])
-        actual_set_3 = set(actual_numbers[:3])
-        bonus_3 = len(pred_set_3.intersection(actual_set_3)) == 3
-
-        return {
-            'exact_order': exact_order,
-            'any_order': any_order,
-            'bonus_4': bonus_4,
-            'bonus_3': bonus_3
-        }
-
-
-class EnhancedPerformanceTester:
     def __init__(self, config_path: str = 'config.yaml'):
-        """Initialize the enhanced performance tester."""
+        """Initialize the performance tester."""
         self.config = setup_environment(config_path)
-        self.db_path = self._get_db_path()
+        self.db_path = get_database_path(self.config)
+        self.predictor = HorseRacePredictor(config_path)
 
-        # Ensure we're in the right directory
-        os.chdir(self.config['rootdir'])
-
-    def _get_db_path(self) -> Path:
-        """Get database path from config."""
-        db_config = next((db for db in self.config['databases'] if db['name'] == 'full'), None)
-        if not db_config:
-            raise ValueError("Full database configuration not found")
-        return Path(self.config['rootdir']) / db_config['path']
-
-    def _connect_to_db(self) -> sqlite3.Connection:
-        """Create an optimized database connection."""
-        conn = sqlite3.connect(self.db_path)
-        conn.execute('PRAGMA journal_mode = WAL')
-        conn.execute('PRAGMA cache_size = -2000')
-        conn.execute('PRAGMA synchronous = NORMAL')
-        return conn
-
-    def fetch_daily_races(self, date: str) -> pd.DataFrame:
-        """Fetch races from daily_races table for a specific date."""
-        query = """
-        SELECT dr.*, r.ordre_arrivee, r.comp as result_comp
-        FROM daily_races dr
-        LEFT JOIN Resultats r ON dr.comp = r.comp
-        WHERE dr.jour = ? AND r.ordre_arrivee IS NOT NULL
-        """
-
-        with self._connect_to_db() as conn:
-            df = pd.read_sql_query(query, conn, params=(date,))
-
-            # Process ordre_arrivee to create actual_order column
-            def format_ordre_arrivee(ordre):
-                try:
-                    if pd.isna(ordre) or not ordre:
-                        return ''
-                    # Parse JSON array and extract arrival order
-                    arrival_data = json.loads(ordre)
-                    # Sort by narrivee and extract numero
-                    sorted_numbers = sorted(arrival_data, key=lambda x: int(x.get('narrivee', 99)))
-                    actual_order = '-'.join(str(x.get('numero', '')) for x in sorted_numbers)
-                    return actual_order
-                except Exception as e:
-                    print(f"Error processing ordre_arrivee: {e}")
-                    return ''
-
-            # Add the actual_order column by processing ordre_arrivee
-            df['actual_order'] = df['ordre_arrivee'].apply(format_ordre_arrivee)
-
-            # Drop any rows where we couldn't process the actual order
-            df = df[df['actual_order'] != '']
-
-            return df
-
-    def _ensure_predictions_table(self):
+    def _ensure_predictions_table(self) -> None:
         """Ensure predictions table exists in database."""
-        with self._connect_to_db() as conn:
+        with sqlite3.connect(self.db_path) as conn:
             conn.execute("""
                 CREATE TABLE IF NOT EXISTS predictions (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     comp INTEGER NOT NULL,
                     bet_type TEXT NOT NULL,
-                    model_type TEXT NOT NULL,
                     sequence TEXT NOT NULL,
                     confidence REAL,
-                    created_at DATETIME NOT NULL,
-                    FOREIGN KEY (comp) REFERENCES daily_races(comp)
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    UNIQUE(comp, bet_type)
                 )
             """)
 
-    def store_prediction(self, comp: int, bet_type: str, model_type: str,
-                         sequence: str, confidence: float, timestamp: datetime) -> None:
-        """Store prediction in the predictions table."""
-        self._ensure_predictions_table()
-        with self._connect_to_db() as conn:
+    def get_races_for_date(self, date: str) -> List[Dict]:
+        """Get all completed races for a specific date.
+
+        Args:
+            date: Date in YYYY-MM-DD format
+
+        Returns:
+            List of race dictionaries with results
+        """
+        with sqlite3.connect(self.db_path) as conn:
+            query = """
+                SELECT 
+                    dr.comp,
+                    dr.quinte,
+                    dr.hippodrome,
+                    dr.heure,
+                    dr.prixnom,
+                    r.ordre_arrivee
+                FROM daily_races dr
+                JOIN Resultats r ON dr.comp = r.comp
+                WHERE dr.jour = ?
+                ORDER BY dr.heure
+            """
+            cursor = conn.execute(query, (date,))
+            columns = [col[0] for col in cursor.description]
+            return [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+    def get_stored_prediction(self, comp_id: int, bet_type: str) -> Optional[Dict]:
+        """Get stored prediction for a race if it exists.
+
+        Args:
+            comp_id: Race competition ID
+            bet_type: Type of bet (tierce, quarte, quinte)
+
+        Returns:
+            Dictionary with prediction data or None if not found
+        """
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.execute("""
+                SELECT sequence, confidence
+                FROM predictions
+                WHERE comp = ? AND bet_type = ?
+            """, (comp_id, bet_type))
+            result = cursor.fetchone()
+
+            if result:
+                return {
+                    'sequence': result[0],
+                    'confidence': result[1]
+                }
+            return None
+
+    def store_prediction(self, comp_id: int, bet_type: str,
+                         sequence: str, confidence: float) -> None:
+        """Store a prediction in the database.
+
+        Args:
+            comp_id: Race competition ID
+            bet_type: Type of bet
+            sequence: Predicted sequence
+            confidence: Prediction confidence score
+        """
+        with sqlite3.connect(self.db_path) as conn:
             conn.execute("""
-                INSERT INTO predictions (
-                    comp, bet_type, model_type, sequence, confidence, created_at
-                ) VALUES (?, ?, ?, ?, ?, ?)
-            """, (comp, bet_type, model_type, sequence, confidence, timestamp))
+                INSERT OR REPLACE INTO predictions 
+                (comp, bet_type, sequence, confidence)
+                VALUES (?, ?, ?, ?)
+            """, (comp_id, bet_type, sequence, confidence))
+            conn.commit()
 
-    def evaluate_prediction(self, prediction: str, actual_results: str,
-                            bet_type: str) -> Dict[str, float]:
-        """Evaluate a prediction against actual results."""
-        try:
-            pred_numbers = prediction.split('-')
-            actual_numbers = actual_results.strip().split('-') if actual_results else []
+    def evaluate_prediction(self, prediction: str, actual: str,
+                            bet_type: str) -> Dict[str, bool]:
+        """Evaluate a prediction against actual results.
 
-            positions = {'tierce': 3, 'quarte': 4, 'quinte': 5}
-            num_positions = positions.get(bet_type, 3)
+        Args:
+            prediction: Predicted sequence
+            actual: Actual sequence
+            bet_type: Type of bet
 
-            pred_numbers = pred_numbers[:num_positions]
-            actual_numbers = actual_numbers[:num_positions]
+        Returns:
+            Dictionary with evaluation metrics
+        """
+        pred_nums = prediction.split('-')
+        actual_nums = actual.split('-')
 
-            exact_matches = sum(p == a for p, a in zip(pred_numbers, actual_numbers))
-            numbers_found = sum(p in actual_numbers for p in pred_numbers)
+        # Handle different bet types
+        if bet_type == 'quinte':
+            exact_order = pred_nums == actual_nums
+            in_top_5 = set(pred_nums[:5]) == set(actual_nums[:5])
+            top_4_match = len(set(pred_nums[:4]) & set(actual_nums[:4])) == 4
+            top_3_match = len(set(pred_nums[:3]) & set(actual_nums[:3])) == 3
 
             return {
-                'exact_matches': exact_matches,
-                'numbers_found': numbers_found,
-                'accuracy': exact_matches / num_positions,
-                'hit_rate': numbers_found / num_positions
+                'exact_order': exact_order,
+                'all_in_top_5': in_top_5,
+                'top_4_match': top_4_match,
+                'top_3_match': top_3_match
             }
-        except Exception as e:
-            print(f"Error evaluating prediction: {e}")
+        else:  # tierce/quarte
+            positions = 4 if bet_type == 'quarte' else 3
+            exact_order = pred_nums[:positions] == actual_nums[:positions]
+            correct_horses = set(pred_nums[:positions]) == set(actual_nums[:positions])
+
             return {
-                'exact_matches': 0,
-                'numbers_found': 0,
-                'accuracy': 0.0,
-                'hit_rate': 0.0
+                'exact_order': exact_order,
+                'correct_horses': correct_horses
             }
 
-    def analyze_predictions(self, date: str, predictor, model_type: str = 'combined') -> Dict:
-        """Analyze predictions for a specific date using specified model type."""
-        daily_races = self.fetch_daily_races(date)
-        if daily_races.empty:
-            return {"error": f"No races found for date {date}"}
+    def analyze_predictions(self, date: str) -> Dict:
+        """Analyze predictions for all races on a given date."""
+        print(f"\nAnalyzing predictions for {date}")
+        races = self.get_races_for_date(date)
+        if not races:
+            print(f"No races found for {date}")
+            return {'error': 'No races found'}
 
+        print(f"Found {len(races)} races to analyze")
         results = []
-        total_predictions = 0
-        successful_predictions = 0
 
-        for _, race in daily_races.iterrows():
-            comp_id = race['comp']
-            is_quinte = bool(race['quinte'])
+        for race in races:
+            try:
+                comp_id = race['comp']
+                bet_type = 'quinte' if race['quinte'] else 'tierce'
 
-            bet_types = ['tierce', 'quarte', 'quinte'] if is_quinte else ['tierce']
+                prediction = self.predictor.predict_race(
+                    comp_id,
+                    bet_type=bet_type,
+                    return_sequence_only=True
+                )
 
-            for bet_type in bet_types:
-                try:
-                    # Get prediction with specified model type
-                    prediction_result = predictor.predict_race(
-                        comp_id,
-                        bet_type=bet_type,
-                        return_sequence_only=True,
-                        model_type=model_type
-                    )
-
-                    if not prediction_result:
-                        continue
-
-                    sequence = prediction_result['sequence']
-                    confidence = prediction_result['confidence']
-                    prediction_time = datetime.now()
-
-                    # Store prediction
-                    self.store_prediction(
-                        comp_id,
-                        bet_type,
-                        model_type,
-                        sequence,
-                        confidence,
-                        prediction_time
-                    )
-
+                if prediction:
+                    actual_sequence = self._parse_ordre_arrivee(race['ordre_arrivee'])
                     evaluation = self.evaluate_prediction(
-                        sequence,
-                        race['actual_order'],
+                        prediction['sequence'],
+                        actual_sequence,
                         bet_type
                     )
 
                     results.append({
                         'comp_id': comp_id,
+                        'hippodrome': race['hippodrome'],
+                        'heure': race['heure'],
+                        'prixnom': race['prixnom'],
                         'bet_type': bet_type,
-                        'model_type': model_type,
-                        'prediction': sequence,
-                        'actual': race['actual_order'],
-                        'confidence': confidence,
+                        'prediction': prediction['sequence'],
+                        'actual': actual_sequence,
+                        'confidence': prediction.get('confidence', 50),
                         **evaluation
                     })
+                    print(f"Processed race {comp_id}")
 
-                    total_predictions += 1
-                    if evaluation['numbers_found'] > 0:
-                        successful_predictions += 1
-
-                except Exception as e:
-                    print(f"Error processing race {comp_id} for {bet_type}: {e}")
-                    continue
-
-        if not results:
-            return {"error": "No predictions were made"}
-
-        df_results = pd.DataFrame(results)
-
-        metrics = {
-            'total_predictions': total_predictions,
-            'successful_predictions': successful_predictions,
-            'success_rate': (successful_predictions / total_predictions) * 100 if total_predictions > 0 else 0,
-            'average_accuracy': df_results['accuracy'].mean() * 100,
-            'average_hit_rate': df_results['hit_rate'].mean() * 100,
-            'average_confidence': df_results['confidence'].mean(),
-            'high_confidence_success_rate': df_results[
-                                                df_results['confidence'] >= 75
-                                                ]['hit_rate'].mean() * 100 if len(
-                df_results[df_results['confidence'] >= 75]) > 0 else 0
-        }
+            except Exception as e:
+                print(f"Error processing race {comp_id}: {str(e)}")
+                continue
 
         return {
-            'metrics': metrics,
+            'metrics': self.calculate_metrics(results),
             'detailed_results': results
         }
+    def _parse_ordre_arrivee(self, ordre_arrivee: str) -> str:
+        """Parse ordre_arrivee JSON into sequence string."""
+        try:
+            arrival_data = json.loads(ordre_arrivee)
+            sorted_numbers = sorted(arrival_data, key=lambda x: int(x['narrivee']))
+            return '-'.join(str(x['numero']) for x in sorted_numbers)
+        except Exception as e:
+            print(f"Error parsing ordre_arrivee: {e}")
+            return ''
 
-    def generate_report(self, analysis_results: Dict, model_type: str) -> str:
-        """Generate a detailed performance report."""
-        if 'error' in analysis_results:
-            return f"Error: {analysis_results['error']}"
+    def calculate_metrics(self, results: List[Dict]) -> Dict:
+        """Calculate success metrics focusing on Quinté+ performance."""
+        quinte_results = [r for r in results if r['bet_type'] == 'quinte']
 
-        metrics = analysis_results['metrics']
-        detailed_results = analysis_results['detailed_results']
+        metrics = {
+            'total_races': len(results),
+            'quinte_metrics': {
+                'total_races': len(quinte_results),
+                'exact_order': 0,  # All 5 horses in exact order
+                'disorder_5': 0,  # All 5 horses in any order
+                'bonus_4': 0,  # First 4 horses in any order
+                'bonus_4_plus': 0,  # 4 horses among first 5
+                'bonus_3': 0,  # First 3 horses in any order
+                'total_hits': 0,  # Any kind of winning combination
+                'by_confidence': {
+                    'high_conf_success': 0,  # Success rate for high confidence predictions
+                    'med_conf_success': 0,  # Success rate for medium confidence predictions
+                    'low_conf_success': 0  # Success rate for low confidence predictions
+                }
+            }
+        }
 
+        # Count successes for each prediction
+        for result in quinte_results:
+            pred_sequence = result['prediction'].split('-')
+            actual_sequence = result['actual'].split('-')
+            confidence = result['confidence']
+
+            # Check different winning conditions
+            exact_order = pred_sequence == actual_sequence
+            disorder_5 = set(pred_sequence[:5]) == set(actual_sequence[:5])
+            bonus_4 = len(set(pred_sequence[:4]) & set(actual_sequence[:4])) == 4
+            bonus_4_plus = len(set(pred_sequence[:4]) & set(actual_sequence[:5])) == 4
+            bonus_3 = len(set(pred_sequence[:3]) & set(actual_sequence[:3])) == 3
+
+            # Update counts
+            if exact_order:
+                metrics['quinte_metrics']['exact_order'] += 1
+            if disorder_5:
+                metrics['quinte_metrics']['disorder_5'] += 1
+            if bonus_4:
+                metrics['quinte_metrics']['bonus_4'] += 1
+            if bonus_4_plus:
+                metrics['quinte_metrics']['bonus_4_plus'] += 1
+            if bonus_3:
+                metrics['quinte_metrics']['bonus_3'] += 1
+
+            # Count any type of success
+            if any([exact_order, disorder_5, bonus_4, bonus_4_plus, bonus_3]):
+                metrics['quinte_metrics']['total_hits'] += 1
+
+            # Track success by confidence level
+            if confidence >= 75:
+                metrics['quinte_metrics']['by_confidence']['high_conf_success'] += 1
+            elif confidence >= 50:
+                metrics['quinte_metrics']['by_confidence']['med_conf_success'] += 1
+            else:
+                metrics['quinte_metrics']['by_confidence']['low_conf_success'] += 1
+
+        # Calculate percentages if we have races
+        if len(quinte_results) > 0:
+            total = len(quinte_results)
+            quinte_metrics = metrics['quinte_metrics']
+
+            # Add percentage metrics
+            quinte_metrics.update({
+                'exact_order_rate': (quinte_metrics['exact_order'] / total) * 100,
+                'disorder_5_rate': (quinte_metrics['disorder_5'] / total) * 100,
+                'bonus_4_rate': (quinte_metrics['bonus_4'] / total) * 100,
+                'bonus_4_plus_rate': (quinte_metrics['bonus_4_plus'] / total) * 100,
+                'bonus_3_rate': (quinte_metrics['bonus_3'] / total) * 100,
+                'total_success_rate': (quinte_metrics['total_hits'] / total) * 100
+            })
+
+        return metrics
+
+    def generate_report(self, metrics: Dict) -> str:
+        """Generate a detailed report of the analysis results."""
         report = [
-            f"Performance Analysis Report ({model_type.upper()} Model)",
+            "\nQuinté+ Performance Analysis",
             "=" * 50,
-            f"\nOverall Metrics:",
-            f"Total Predictions: {metrics['total_predictions']}",
-            f"Successful Predictions: {metrics['successful_predictions']}",
-            f"Success Rate: {metrics['success_rate']:.2f}%",
-            f"Average Accuracy: {metrics['average_accuracy']:.2f}%",
-            f"Average Hit Rate: {metrics['average_hit_rate']:.2f}%",
-            f"Average Confidence: {metrics['average_confidence']:.2f}%",
-            f"High Confidence Success Rate: {metrics['high_confidence_success_rate']:.2f}%"
+            f"\nTotal Races Analyzed: {metrics['total_races']}",
+            f"Total Quinté+ Races: {metrics['quinte_metrics']['total_races']}",
+            "\nSuccess Rates:",
+            f"  Exact Order: {metrics['quinte_metrics']['exact_order_rate']:.2f}%",
+            f"  All 5 in Disorder: {metrics['quinte_metrics']['disorder_5_rate']:.2f}%",
+            f"  Bonus 4 (First 4): {metrics['quinte_metrics']['bonus_4_rate']:.2f}%",
+            f"  Bonus 4+ (4 in 5): {metrics['quinte_metrics']['bonus_4_plus_rate']:.2f}%",
+            f"  Bonus 3: {metrics['quinte_metrics']['bonus_3_rate']:.2f}%",
+            f"  Any Win Type: {metrics['quinte_metrics']['total_success_rate']:.2f}%",
+            "\nRaw Counts:",
+            f"  Exact Order Wins: {metrics['quinte_metrics']['exact_order']}",
+            f"  Disorder 5 Wins: {metrics['quinte_metrics']['disorder_5']}",
+            f"  Bonus 4 Wins: {metrics['quinte_metrics']['bonus_4']}",
+            f"  Bonus 4+ Wins: {metrics['quinte_metrics']['bonus_4_plus']}",
+            f"  Bonus 3 Wins: {metrics['quinte_metrics']['bonus_3']}",
+            f"  Total Hits: {metrics['quinte_metrics']['total_hits']}"
         ]
-
-        if detailed_results:
-            report.extend([
-                "\nDetailed Results:",
-                "-" * 50
-            ])
-
-            for result in detailed_results[:10]:  # Show first 10 results
-                report.extend([
-                    f"\nRace {result['comp_id']} ({result['bet_type'].upper()}):",
-                    f"Prediction: {result['prediction']}",
-                    f"Actual: {result['actual']}",
-                    f"Confidence: {result['confidence']:.2f}%",
-                    f"Exact Matches: {result['exact_matches']}",
-                    f"Numbers Found: {result['numbers_found']}"
-                ])
 
         return "\n".join(report)
 
-def main(model_name: str = 'claude', date: str = None, model_type: str = 'combined'):
-    """Main function to run enhanced performance testing."""
-    try:
-        # Initialize predictor
-        from model.Claude.claude_predict_race import HorseRacePredictor
-        predictor = HorseRacePredictor()
 
-        # Initialize tester
-        tester = EnhancedPerformanceTester()
+def main(date: Optional[str] = None):
+    """Run performance analysis for a specific date."""
+    try:
+        tester = PerformanceTester()
 
         # Use provided date or default to today
         test_date = date or datetime.now().strftime("%Y-%m-%d")
 
-        print(f"Running performance analysis for date: {test_date} using {model_type} model")
+        # Run analysis
+        results = tester.analyze_predictions(test_date)
 
-        # Run analysis with specified model type
-        results = tester.analyze_predictions(test_date, predictor, model_type)
-
-        # Generate and print report - pass model_type to generate_report
+        # Display results
         if 'error' not in results:
-            report = tester.generate_report(results, model_type)
-            print("\n" + report)
+            print("\nAnalysis Results:")
+            print("-" * 50)
+
+            metrics = results['metrics']
+            print(f"\nTotal Races Analyzed: {metrics['total_races']}")
+
+            # Quinté+ results
+            print("\nQuinté+ Performance:")
+            q_metrics = metrics['quinte_plus']
+            print(f"Total Races: {q_metrics['total']}")
+            print(f"Exact Order: {q_metrics.get('exact_order_rate', 0):.2f}%")
+            print(f"All in Top 5: {q_metrics.get('all_in_top_5_rate', 0):.2f}%")
+            print(f"Top 4 Match: {q_metrics.get('top_4_match_rate', 0):.2f}%")
+            print(f"Top 3 Match: {q_metrics.get('top_3_match_rate', 0):.2f}%")
+
+            # Other bets results
+            print("\nOther Bets Performance:")
+            o_metrics = metrics['other_bets']
+            print(f"Total Races: {o_metrics['total']}")
+            print(f"Exact Order: {o_metrics.get('exact_order_rate', 0):.2f}%")
+            print(f"Correct Horses: {o_metrics.get('correct_horses_rate', 0):.2f}%")
+
             return results
         else:
             print(f"\nError: {results['error']}")
@@ -357,12 +351,7 @@ def main(model_name: str = 'claude', date: str = None, model_type: str = 'combin
         raise
 
 
-
-
-
 if __name__ == "__main__":
     import sys
-
-    model_type = sys.argv[2] if len(sys.argv) > 2 else 'combined'
     date = sys.argv[1] if len(sys.argv) > 1 else None
-    main(date='2025-02-13')
+    main(date)

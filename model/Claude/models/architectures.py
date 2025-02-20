@@ -8,14 +8,16 @@ from tensorflow.keras.models import Model
 
 def create_rf_model():
     """Create a Random Forest model with tuned hyperparameters."""
-    return RandomForestRegressor(
+    print("Creating Random Forest model...")
+    model = RandomForestRegressor(
         n_estimators=100,
         max_depth=None,
         min_samples_split=2,
         min_samples_leaf=1,
         random_state=42
     )
-
+    print(f"Created RF model of type: {type(model)}")
+    return model
 
 def create_lstm_model(sequence_length, seq_feature_dim, static_feature_dim):
     """Create an LSTM model for sequential race predictions.
@@ -55,10 +57,26 @@ def create_lstm_model(sequence_length, seq_feature_dim, static_feature_dim):
 
 def create_hybrid_model(sequence_length, seq_feature_dim, static_feature_dim):
     """Create a hybrid model combining RF and LSTM."""
-    rf_model = create_rf_model()
-    lstm_model = create_lstm_model(sequence_length, seq_feature_dim, static_feature_dim)
+    print("Creating hybrid model...")
 
-    return {
+    # Create RF model
+    rf_model = create_rf_model()
+    print(f"Created RF model: {type(rf_model)}")
+
+    # Create LSTM model
+    lstm_model = create_lstm_model(sequence_length, seq_feature_dim, static_feature_dim)
+    print(f"Created LSTM model: {type(lstm_model)}")
+
+    # Verify models before returning
+    if rf_model is None:
+        raise ValueError("RF model creation failed")
+    if lstm_model is None:
+        raise ValueError("LSTM model creation failed")
+
+    models = {
         'rf': rf_model,
         'lstm': lstm_model
     }
+
+    print(f"Returning models dictionary with keys: {models.keys()}")
+    return models

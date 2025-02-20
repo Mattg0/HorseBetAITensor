@@ -3,7 +3,7 @@ import pandas as pd
 import json
 import sqlite3
 import hashlib
-from env_setup import setup_environment
+from env_setup import setup_environment,get_database_path, get_model_paths, get_cache_path
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 
@@ -163,12 +163,9 @@ def main():
         return pd.read_parquet(cache_file)
 
     # Process data if cache doesn't exist
-    db_config = next((db for db in config['databases'] if db['name'] == '2years'), None)
-    if not db_config:
-        raise ValueError("Lite database configuration not found")
-
-    db_path = os.path.join(root_dir, db_config['path'])
-    db_name = 'data/hippique.db'
+    config = setup_environment()
+    db_path = get_database_path(config)
+    cache_path = get_cache_path(config, 'historical_data')
     conn = connect_to_db(db_path)
 
     data = fetch_combined_data(conn)

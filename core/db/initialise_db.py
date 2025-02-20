@@ -1,4 +1,4 @@
-from core.DB_Connectors.db_helper import create_connection, initialize_db
+from core.db.db_helper import create_connection, initialize_db
 
 def main():
     database = "data/lite_hippique.db"

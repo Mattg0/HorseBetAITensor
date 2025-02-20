@@ -1,9 +1,9 @@
-# Configuration file for HorseBetAITensor AI project
-# Configuration file for HorseBetAITensor AI project
-
 # Root directory - uncomment the appropriate line for your environment
-#rootdir: "/Users/mattg0/Docs/HorseBetAITensor/"
-rootdir: "/HorseBetAITensor"
+rootdir: "/Users/mattg0/Docs/HorseBetAITensor/"
+#rootdir: "/HorseBetAITensor"
+
+# Active database configuration
+active_db: "2years"  # Can be "full", "2years", or "5years"
 
 # Path configurations
 paths:
@@ -16,17 +16,29 @@ paths:
 databases:
   - name: "full"
     path: "data/hippique.db"
-  - name: "lite"
-    path: "data/lite_hippique.db"
-  - name: "5years"
-    path: "data/hippique5.db"
+    description: "Full historical database"
   - name: "2years"
     path: "data/hippique2.db"
+    description: "Last 2 years of data"
+  - name: "5years"
+    path: "data/hippique5.db"
+    description: "Last 5 years of data"
   - name: "mysql"
     host: "localhost"
     user: "turfai"
     password: "welcome123"
     database: "pturf2024"
+
+# Cache configurations
+cache:
+  historical_data:
+    full: "cache/full_historical_data.parquet"
+    2years: "cache/2years_historical_data.parquet"
+    5years: "cache/5years_historical_data.parquet"
+  training_data:
+    full: "cache/full_training_data.parquet"
+    2years: "cache/2years_training_data.parquet"
+    5years: "cache/5years_training_data.parquet"
 
 # Bet type configurations
 bet_type:
@@ -36,13 +48,19 @@ bet_type:
     value: 4
   - name: "quinte"
     value: 5
+  - name: "full"
+    value: None
 
 # Model configurations
 model:
   - name: "lstm"
-    path: "model/LSTM"
+    base_path: "model/LSTM"
     train_script: "lstm_train_model.py"
     predict_script: "lstm_predict_race.py"
+    model_paths:
+      full: "full"
+      2years: "2years"
+      5years: "5years"
     artifacts:
       label_encoder: "lstm_label_encoder.pkl"
       label_encoder_idche: "lstm_label_encoder_idche.pkl"
@@ -52,9 +70,13 @@ model:
     logs: "logs/lstm"
 
   - name: "forest"
-    path: "model/Forest"
+    base_path: "model/Forest"
     train_script: "forest_train_model.py"
     predict_script: "forest_predict_race.py"
+    model_paths:
+      full: "full"
+      2years: "2years"
+      5years: "5years"
     artifacts:
       label_encoder: "label_encoder.pkl"
       label_encoder_idche: "label_encoder_idche.pkl"
@@ -64,22 +86,28 @@ model:
     logs: "logs/forest"
 
   - name: "claude"
-    path: "model/Claude"
+    base_path: "model/Claude"
     train_script: "claude_train_model.py"
     predict_script: "claude_predict_race.py"
+    model_paths:
+      full: "full"
+      2years: "2years"
+      5years: "5years"
     artifacts:
-      path: 'generated_models'
-      model: "claude_race_model.keras"
-      preprocessor: "preprocessor.pkl"
-      feature_engineer: "feature_engineer.pkl"
-      scaler: "scaler.pkl"
+      rf_model: "rf_model.joblib"
+      lstm_model: "lstm_model.keras"
+      feature_engineer: "feature_engineering.joblib"
     logs: "logs/claude"
+
   - name: "hybrid"
-    path: "model/Claude"
+    base_path: "model/Claude"
     train_script: "claude_train_model.py"
     predict_script: "claude_predict_race.py"
+    model_paths:
+      full: "full"
+      2years: "2years"
+      5years: "5years"
     artifacts:
-      path: 'generated_models'
       rf_model: "rf_model.joblib"
       lstm_model: "lstm_model.keras"
       feature_engineer: "feature_engineering.joblib"
@@ -89,5 +117,7 @@ telegram:
   bot_token: '7638183617:AAHS8UaVJUtZkESC5C5TaTQQyEVlthBANls'
   chat_id: '1051257832'
 
-test_comp_id: 1569175
+aspiturf:
+  api_key: '8cdfGeF4pHeSOPv05dPnVyGaghL2'
 
+test_comp_id: 1569175

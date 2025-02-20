@@ -21,13 +21,6 @@ class RacePredictionOrchestrator:
         """Initialize the race prediction orchestrator."""
         # Load configuration
         self.config = setup_environment(config_path)
-
-        # Initialize database
-        db_config = next((db for db in self.config['databases'] if db['name'] == 'full'), None)
-        if not db_config:
-            raise ValueError("Full database configuration not found")
-
-        # Initialize components
         self.db = Database(config_path)
         self.api = RaceAPI(api_key="8cdfGeF4pHeSOPv05dPnVyGaghL2")
         self.repository = RaceRepository(self.db)

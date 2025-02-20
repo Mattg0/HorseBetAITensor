@@ -1,15 +1,19 @@
 from pathlib import Path
+import os
 import pandas as pd
 import numpy as np
 import tensorflow as tf
 import joblib
 import json
 from typing import Dict, Tuple, Union
-from env_setup import setup_environment, get_model_paths
+from env_setup import setup_environment, get_model_paths,get_cache_path
 from core.format_dailyrace_data import main as get_race_data
 from core.prep_history_data import main as get_historical_races
+from model.Claude.features import FeatureEngineering
 from utils.cache_manager import CacheManager
+from scripts.FeatureHandler import FeatureHandler
 import scipy
+
 
 class HorseRacePredictor:
     def __init__(self, config_path: str = 'config.yaml', sequence_length: int = 5):
@@ -21,8 +25,10 @@ class HorseRacePredictor:
         self.feature_engineering = None
         self.historical_data = None
 
-        # Set model directory path (all models are in Claude directory)
-        self.model_dir = Path(self.config['rootdir']) / 'model' / 'Claude'
+        # Get model paths
+        self.model_paths = get_model_paths(self.config, 'claude')
+        self.model_dir = Path(self.model_paths['model_path'])
+
         if not self.model_dir.exists():
             raise FileNotFoundError(f"Model directory not found at {self.model_dir}")
 
@@ -35,23 +41,64 @@ class HorseRacePredictor:
 
     def _load_model_components(self) -> None:
         """Load the trained models and components."""
-        # Load RF model
-        rf_path = self.model_dir / 'rf_model.joblib'
-        if not rf_path.exists():
-            raise FileNotFoundError(f"RF model not found at {rf_path}")
-        self.rf_model = joblib.load(rf_path)
+        try:
+            rf_path = Path(self.model_paths['model_path']) / self.model_paths['artifacts']['rf_model']
+            if rf_path.exists():
+                loaded_rf = joblib.load(rf_path)
+                if loaded_rf is None:
+                    raise ValueError("joblib.load returned None for RF model")
+                self.rf_model = loaded_rf
+            else:
+                raise FileNotFoundError(f"RF model not found at {rf_path}")
 
-        # Load LSTM model
-        lstm_path = self.model_dir / 'lstm_model.keras'
-        if not lstm_path.exists():
-            raise FileNotFoundError(f"LSTM model not found at {lstm_path}")
-        self.lstm_model = tf.keras.models.load_model(str(lstm_path))
+            # Verify RF model more thoroughly
+            if not hasattr(self.rf_model, 'predict'):
+                print(f"DEBUG: RF model lacks predict method. Available attributes: {dir(self.rf_model)}")
+                raise ValueError("Loaded RF model lacks predict method")
 
-        # Load feature engineering
-        feature_path = self.model_dir / 'feature_engineering.joblib'
-        if not feature_path.exists():
-            raise FileNotFoundError(f"Feature engineering not found at {feature_path}")
-        self.feature_engineering = joblib.load(feature_path)
+
+            # Load LSTM model
+            lstm_path = Path(self.model_paths['model_path']) / self.model_paths['artifacts']['lstm_model']
+            if not lstm_path.exists():
+                raise FileNotFoundError(f"LSTM model not found at {lstm_path}")
+            self.lstm_model = tf.keras.models.load_model(str(lstm_path))
+
+            # Load feature engineering state
+            feature_path = Path(self.model_paths['model_path']) / self.model_paths['artifacts']['feature_engineer']
+            print(f"Looking for feature engineering at: {feature_path}")
+            if not feature_path.exists():
+                raise FileNotFoundError(f"Feature engineering not found at {feature_path}")
+
+            # Create new instance and restore state
+            self.feature_engineering = FeatureEngineering()
+            feature_state = joblib.load(feature_path)
+
+            # Restore state
+            for key, value in feature_state.items():
+                setattr(self.feature_engineering, key, value)
+            print("Successfully loaded feature engineering")
+
+            # Verify models are loaded correctly
+            if self.rf_model is None:
+                raise ValueError("RF model failed to load properly")
+            if self.lstm_model is None:
+                raise ValueError("LSTM model failed to load properly")
+            if self.feature_engineering is None:
+                raise ValueError("Feature engineering failed to load properly")
+        except Exception as e:
+            print(f"\nERROR during model loading: {str(e)}")
+            print(f"Current working directory: {os.getcwd()}")
+            print(f"Model path directory exists: {Path(self.model_paths['model_path']).exists()}")
+            print(f"Model directory contents: {list(Path(self.model_paths['model_path']).glob('*'))}")
+            # Try to read the file contents
+            try:
+                with open(rf_path, 'rb') as f:
+                    first_bytes = f.read(100)
+                    print(f"First few bytes of RF model file: {first_bytes}")
+            except Exception as read_error:
+                print(f"Could not read RF model file: {read_error}")
+            raise
+
 
     def _load_historical_data(self) -> None:
         """Load and process historical race data with caching."""
@@ -80,46 +127,44 @@ class HorseRacePredictor:
             raise
 
     def calculate_confidence_score(self, results: pd.DataFrame, num_positions: int) -> float:
-        """
-        Calculate confidence score based on various factors:
-        - Odds distribution
-        - Model agreement (RF vs LSTM)
-        - Gap between predicted positions
-        - Historical performance statistics
-
-        Returns a score between 0 and 100
-        """
+        """Calculate confidence score based on various factors."""
         try:
             # Get top N horses based on bet type
             top_horses = results.head(num_positions)
 
             # 1. Model Agreement Score (0-25 points)
-            rf_lstm_corr = self._calculate_correlation(
-                top_horses['rf_prediction'].values,
-                top_horses['lstm_prediction'].values
-            )
-            model_agreement_score = max(0, min(25, rf_lstm_corr * 25))
+            rf_preds = top_horses['rf_prediction'].values
+            lstm_preds = top_horses['lstm_prediction'].values
+
+            # Use rankings instead of raw predictions
+            rf_ranks = scipy.stats.rankdata(rf_preds)
+            lstm_ranks = scipy.stats.rankdata(lstm_preds)
+            model_agreement_score = max(0, min(25, (1 - np.mean(np.abs(rf_ranks - lstm_ranks)) / num_positions) * 25))
 
             # 2. Odds Confidence (0-25 points)
-            # Higher score if favorites are in predicted positions
-            odds_sorted = top_horses['odds'].sort_values()
-            actual_odds = top_horses['odds'].values
-            odds_correlation = self._calculate_correlation(odds_sorted.values, actual_odds)
-            odds_score = max(0, min(25, (1 - abs(odds_correlation)) * 25))
+            odds = top_horses['odds'].values
+            if not np.any(np.isnan(odds)):
+                odds_ranks = scipy.stats.rankdata(odds)
+                pred_ranks = scipy.stats.rankdata(range(len(odds)))
+                odds_score = max(0, min(25, (1 - np.mean(np.abs(odds_ranks - pred_ranks)) / num_positions) * 25))
+            else:
+                odds_score = 12.5  # Neutral score if odds are missing
 
             # 3. Position Gap Score (0-25 points)
-            # Calculate gaps between predicted positions
             position_gaps = np.diff(top_horses['predicted_position'].values)
-            avg_gap = np.mean(position_gaps)
-            gap_score = max(0, min(25, (avg_gap / 0.5) * 25))  # Normalize by expected gap
+            if len(position_gaps) > 0 and not np.any(np.isnan(position_gaps)):
+                avg_gap = np.mean(position_gaps)
+                gap_score = max(0, min(25, (avg_gap / 0.5) * 25))
+            else:
+                gap_score = 12.5  # Neutral score if gaps can't be calculated
 
             # 4. Prediction Stability (0-25 points)
-            # Calculate variance in predictions between models
-            prediction_variance = np.mean([
-                np.var([row['rf_prediction'], row['lstm_prediction']])
-                for _, row in top_horses.iterrows()
-            ])
-            stability_score = max(0, min(25, (1 - prediction_variance) * 25))
+            if not np.any(np.isnan(rf_preds)) and not np.any(np.isnan(lstm_preds)):
+                # Calculate variance of normalized rankings
+                variances = [np.var([r, l]) / num_positions for r, l in zip(rf_ranks, lstm_ranks)]
+                stability_score = max(0, min(25, (1 - np.mean(variances)) * 25))
+            else:
+                stability_score = 12.5  # Neutral score if predictions are missing
 
             # Combine scores
             total_confidence = (
@@ -129,12 +174,11 @@ class HorseRacePredictor:
                     stability_score
             )
 
-            # Normalize to 0-100 and round to nearest integer
             return round(total_confidence)
 
         except Exception as e:
-            print(f"Error calculating confidence score: {e}")
-            return 50  # Return neutral confidence on error
+            print(f"Warning: Error calculating confidence score: {e}")
+            return 50
     def _get_latest_stats(self, df: pd.DataFrame) -> pd.DataFrame:
         """Get latest statistics for horses and jockeys from historical data."""
         df_copy = df.copy()
@@ -291,37 +335,20 @@ class HorseRacePredictor:
             return 0.0
 
     def predict_race(self, comp_id: int, bet_type: str = 'tierce', return_sequence_only: bool = False,
-                     model_type: str = 'combined') -> Union[pd.DataFrame, str]:
+                     model_type: str = 'combined') -> Union[pd.DataFrame, Dict, str]:
         """
         Predict race outcomes using selected model type.
 
         Args:
             comp_id: Competition ID
-            bet_type: Type of bet ('tierce', 'quarte', or 'quinte')
+            bet_type: Type of bet ('tierce', 'quarte', 'quinte', or 'full')
             return_sequence_only: If True, returns only the sequence string
             model_type: Type of model to use ('combined', 'rf', or 'lstm')
         """
-        # Validate model type
-        if model_type not in ['combined', 'rf', 'lstm']:
-            raise ValueError("model_type must be one of: 'combined', 'rf', 'lstm'")
-        """Predict race outcomes using both RF and LSTM models with proper normalization."""
-        # Validate bet type
-        bet_type = bet_type.lower()
-        if bet_type not in ['tierce', 'quarte', 'quinte']:
-            raise ValueError("bet_type must be one of: 'tierce', 'quarte', 'quinte'")
-
-        # Map bet type to number of positions
-        bet_positions = {
-            'tierce': 3,
-            'quarte': 4,
-            'quinte': 5
-        }
-        num_positions = bet_positions[bet_type]
-
-        if not return_sequence_only:
-            print(f"\nPredicting outcomes for race {comp_id} ({bet_type.upper()})...")
-
         try:
+            # Initialize feature handler
+            feature_handler = FeatureHandler()
+
             # Get race data
             race_data_json = get_race_data(comp_id)
             if race_data_json is None:
@@ -339,72 +366,41 @@ class HorseRacePredictor:
             # Hash categorical columns before feature extraction
             df = self._hash_categorical_columns(df)
 
-            # Extract and process features
+            # Extract base features
             df_features = self.feature_engineering.extract_all_features(df, is_training=False)
-            df_features = self._get_latest_stats(df_features)
 
-            # Get static features for RF
-            static_features = df_features[self.feature_engineering.get_feature_columns()].astype(float)
+            # Prepare all features with the feature handler
+            df_features = feature_handler.prepare_features(
+                df_features,
+                history_df=self.historical_data if hasattr(self, 'historical_data') else None
+            )
 
-            # Get sequential features for LSTM
+            # Verify all required features are present
+            required_features = self.feature_engineering.get_feature_columns()
+            if not feature_handler.verify_features(df_features, required_features):
+                raise ValueError("Missing or invalid features after preparation")
+
+            # Get features for prediction
+            static_features = df_features[required_features].astype(float)
+
+            # Prepare sequence data
             seq_features, static_seq = self.prepare_sequence_data(df_features, is_prediction=True)
 
             # Make predictions
             rf_predictions = self.rf_model.predict(static_features)
             lstm_raw_predictions = self.lstm_model.predict([seq_features, static_seq], verbose=0).flatten()
 
-            # Post-process LSTM predictions to ensure valid range
-            lstm_predictions = np.clip(lstm_raw_predictions, 1, len(df))  # Clip to valid position range
-            lstm_predictions = scipy.stats.rankdata(lstm_predictions)  # Convert to ranks
+            # Post-process predictions
+            lstm_predictions = np.clip(lstm_raw_predictions, 1, len(df))
+            lstm_predictions = scipy.stats.rankdata(lstm_predictions)
 
-            # Create individual model results DataFrames
-            rf_results = pd.DataFrame({
-                'horse_name': df['cheval'],
-                'numero': df['numero'],
-                'predicted_position': rf_predictions,
-                'odds': df['cotedirect']
-            }).sort_values('predicted_position')
-
-            lstm_results = pd.DataFrame({
-                'horse_name': df['cheval'],
-                'numero': df['numero'],
-                'predicted_position': lstm_predictions,
-                'odds': df['cotedirect']
-            }).sort_values('predicted_position')
-
-            # Get top predictions from each model
-            top_rf_horses = set(rf_results['numero'].head(num_positions))
-            top_lstm_horses = set(lstm_results['numero'].head(num_positions))
-
-            if not return_sequence_only:
-                # Print RF predictions
-                print("\nRandom Forest Predictions:")
-                print(rf_results[['horse_name', 'numero', 'predicted_position', 'odds']].head(num_positions).to_string(
-                    index=False))
-                print(f"RF sequence: {'-'.join(rf_results['numero'].astype(str).head(num_positions).tolist())}")
-
-                # Print LSTM predictions
-                print("\nLSTM Predictions:")
-                print(
-                    lstm_results[['horse_name', 'numero', 'predicted_position', 'odds']].head(num_positions).to_string(
-                        index=False))
-                print(f"LSTM sequence: {'-'.join(lstm_results['numero'].astype(str).head(num_positions).tolist())}")
-
-            # Select predictions based on model_type
+            # Combine predictions based on model_type
             if model_type == 'rf':
                 final_predictions = rf_predictions
-                top_candidates = top_rf_horses
             elif model_type == 'lstm':
                 final_predictions = lstm_predictions
-                top_candidates = top_lstm_horses
             else:  # combined
-                candidate_horses = top_rf_horses.union(top_lstm_horses)
-                rf_ranks = scipy.stats.rankdata(rf_predictions)
-                final_predictions = np.where(
-                    df['numero'].isin(candidate_horses),
-                    0.6 * rf_ranks + 0.4 * lstm_predictions,
-                    len(df) + 1  # Push non-candidate horses to the bottom of rankings
-                )
+                final_predictions = 0.6 * scipy.stats.rankdata(rf_predictions) + 0.4 * lstm_predictions
 
             # Create results DataFrame
             results = pd.DataFrame({
@@ -414,40 +410,39 @@ class HorseRacePredictor:
                 'predicted_position': final_predictions,
                 'rf_prediction': rf_predictions,
                 'lstm_prediction': lstm_predictions,
-                'odds': df['cotedirect'],
-                'in_rf_top': df['numero'].isin(top_rf_horses),
-                'in_lstm_top': df['numero'].isin(top_lstm_horses)
+                'odds': df['cotedirect']
             })
 
-            # Sort and filter for bet type
+            # Sort and prepare output
             results = results.sort_values('predicted_position')
             results['predicted_rank'] = range(1, len(results) + 1)
+
+            # Determine number of positions to return
+            if bet_type == 'full':
+                num_positions = len(results)
+            else:
+                bet_positions = {'tierce': 3, 'quarte': 4, 'quinte': 5}
+                num_positions = bet_positions[bet_type]
+
+            # Get results for requested positions
             bet_results = results.head(num_positions)
 
-            # Generate sequence
+            # Generate sequence and calculate confidence
             sequence = "-".join(bet_results['numero'].astype(str).tolist())
             confidence_score = self.calculate_confidence_score(results, num_positions)
 
             if return_sequence_only:
                 return {
                     'sequence': sequence,
-                    'confidence': confidence_score
+                    'confidence': confidence_score,
+                    'model_type': model_type,
+                    'num_horses': len(bet_results)
                 }
-
-            # Print final prediction output
-            if not return_sequence_only:
-                print(f"\nFinal Combined Prediction:")
-                print(bet_results[['horse_name', 'predicted_rank', 'odds', 'in_rf_top', 'in_lstm_top']].to_string(
-                    index=False))
-                print(f"\nFinal {bet_type.upper()} sequence:")
-                print(sequence)
-                print(f"Confidence Score: {confidence_score}%")
 
             return bet_results, confidence_score
 
         except Exception as e:
-            if not return_sequence_only:
-                print(f"Error during prediction: {str(e)}")
+            print(f"Error predicting race {comp_id}: {str(e)}")
             raise
 
 
@@ -504,11 +499,11 @@ if __name__ == "__main__":
     predictor = HorseRacePredictor()
 
     # Get the test competition ID from config
-    test_comp_id = '1570880'
+    test_comp_id = '1412739'
 
     try:
         # Make predictions for the test race
-        predictions = predictor.predict_race(test_comp_id, bet_type='quinte', return_sequence_only=False)
+        predictions = predictor.predict_race(test_comp_id, bet_type='full', return_sequence_only=False)
         print(predictions)
         print("\nPrediction completed successfully!")
 

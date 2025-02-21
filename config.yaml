@@ -3,7 +3,7 @@
 rootdir: "/HorseBetAITensor"
 
 # Active database configuration
-active_db: "2years"  # Can be "full", "2years", or "5years"
+active_db: "5years"  # Can be "full", "2years", or "5years"
 
 # Path configurations
 paths:
